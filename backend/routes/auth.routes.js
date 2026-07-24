@@ -8,7 +8,8 @@ const {
   logout,
   getMe,
   forgotPassword,
-  resetPassword,
+  updateProfileDetails,
+  connectPatient,
 } = require('../controllers/auth.controller');
 
 const { protect } = require('../middleware/auth.middleware');
@@ -24,5 +25,7 @@ router.patch('/reset-password/:token', resetPassword);
 // Protected routes
 router.get('/me', protect, getMe);
 router.post('/logout', protect, logout);
+router.put('/profile/update', protect, updateProfileDetails);
+router.post('/connect-patient', protect, connectPatient);
 
 module.exports = router;

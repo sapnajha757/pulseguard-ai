@@ -44,6 +44,30 @@ const userSchema = new mongoose.Schema(
       trim: true,
       match: [/^0x[a-fA-F0-9]{40}$/, 'Please provide a valid Ethereum address'],
     },
+    // Connections and Custom Medical Profiles
+    doctorDetails: {
+      name: String,
+      specialty: String,
+      email: String,
+      connected: { type: Boolean, default: false },
+      connectedDoctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    },
+    familyDetails: {
+      name: String,
+      relation: String,
+      email: String,
+      connected: { type: Boolean, default: false },
+      connectedFamilyId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    },
+    diseaseInfo: {
+      condition: String,
+      severity: String,
+      diagnosedYear: String,
+    },
+    connectedPatients: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }]
   },
   { timestamps: true }
 );

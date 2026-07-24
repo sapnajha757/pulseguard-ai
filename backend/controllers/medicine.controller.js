@@ -9,11 +9,17 @@ const medicineService = require('../services/medicine.service');
  * @access Private (requires JWT)
  */
 const createMedicine = asyncHandler(async (req, res) => {
-  const medicine = await medicineService.addMedicine(req.body, req.user.id);
+  // If doctor, they can specify the target patient ID in request body
+  let targetUserId = req.user.id;
+  if (req.user.role === 'doctor' && req.body.patientId) {
+    targetUserId = req.body.patientId;
+  }
+
+  const medicine = await medicineService.addMedicine(req.body, targetUserId);
   const { createAuditLog } = require('../services/blockchain.service');
   await createAuditLog({
-    userId: req.user.id,
-    walletAddress: req.user.walletAddress,
+    userId: targetUserId,
+    walletAddress: req.user.walletAddress || '',
     eventType: 'MEDICINE_CREATED',
     timestamp: Date.now(),
   });
@@ -26,7 +32,11 @@ const createMedicine = asyncHandler(async (req, res) => {
  * @access Private
  */
 const getMedicines = asyncHandler(async (req, res) => {
-  const medicines = await medicineService.getMedicines(req.user.id);
+  let targetUserId = req.user.id;
+  if ((req.user.role === 'doctor' || req.user.role === 'family') && req.query.patientId) {
+    targetUserId = req.query.patientId;
+  }
+  const medicines = await medicineService.getMedicines(targetUserId);
   res.status(200).json({ success: true, data: medicines });
 });
 

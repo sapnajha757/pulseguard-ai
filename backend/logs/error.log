@@ -1178,3 +1178,113 @@
     at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
     at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
     at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+[2026-07-24T14:04:28.993Z] ERROR: ReferenceError: Risk is not defined
+    at Object.getLatestRisk (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\risk.service.js:74:3)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\risk.controller.js:31:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+[2026-07-24T14:04:29.034Z] ERROR: ReferenceError: Risk is not defined
+    at Object.getLatestRisk (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\risk.service.js:74:3)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\risk.controller.js:31:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+[2026-07-24T14:04:30.333Z] ERROR: ReferenceError: Risk is not defined
+    at Object.getLatestRisk (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\risk.service.js:74:3)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\risk.controller.js:31:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+[2026-07-24T14:04:30.364Z] ERROR: ReferenceError: Risk is not defined
+    at Object.getLatestRisk (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\risk.service.js:74:3)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\risk.controller.js:31:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+[2026-07-24T14:04:30.672Z] ERROR: ReferenceError: Risk is not defined
+    at Object.getLatestRisk (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\risk.service.js:74:3)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\risk.controller.js:31:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+[2026-07-24T14:04:30.700Z] ERROR: ReferenceError: Risk is not defined
+    at Object.getLatestRisk (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\risk.service.js:74:3)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\risk.controller.js:31:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+[2026-07-24T14:04:31.184Z] ERROR: ReferenceError: Risk is not defined
+    at Object.getLatestRisk (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\risk.service.js:74:3)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\risk.controller.js:31:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+[2026-07-24T14:04:31.217Z] ERROR: ReferenceError: Risk is not defined
+    at Object.getLatestRisk (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\risk.service.js:74:3)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\risk.controller.js:31:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+[2026-07-24T14:09:25.790Z] ERROR: ReferenceError: Risk is not defined
+    at Object.getLatestRisk (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\risk.service.js:74:3)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\risk.controller.js:31:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+[2026-07-24T14:09:25.838Z] ERROR: ReferenceError: Risk is not defined
+    at Object.getLatestRisk (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\risk.service.js:74:3)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\risk.controller.js:31:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
