@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-base text-slate-200 font-sans antialiased;
+    background-color: #03060c;
+  }
+  ::selection {
+    background: rgba(42, 255, 222, 0.25);
+    color: #eafffb;
+  }
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #070b16;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #16d9c0, #0faa97);
+    border-radius: 999px;
+    border: 2px solid #070b16;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/[0.04] border border-white/10 backdrop-blur-xl;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  .glass-strong {
+    @apply bg-white/[0.07] border border-white/15 backdrop-blur-2xl;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  }
+  .neon-text {
+    color: #2affde;
+    text-shadow: 0 0 14px rgba(42, 255, 222, 0.55);
+  }
+  .neon-border {
+    border: 1px solid rgba(42, 255, 222, 0.4);
+    box-shadow: 0 0 18px rgba(42, 255, 222, 0.25), inset 0 0 18px rgba(42, 255, 222, 0.08);
+  }
+  .gradient-text {
+    background: linear-gradient(120deg, #eafffb 0%, #2affde 50%, #7c5cff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .grid-bg {
+    background-image: linear-gradient(rgba(42, 255, 222, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(42, 255, 222, 0.05) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  .scanline {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  .scanline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background: linear-gradient(180deg, transparent, rgba(42, 255, 222, 0.08), transparent);
+    animation: scan 4s linear infinite;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
