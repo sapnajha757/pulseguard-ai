@@ -38,8 +38,8 @@ export default function AIHealthScoreCard({
               <CheckCircle2 size={12} className="mr-1 inline" /> Polygon Verified
             </Badge>
           )}
-          <Badge tone={futureRisk.next7Days === 'HIGH' ? 'danger' : futureRisk.next7Days === 'MEDIUM' ? 'warning' : 'neon'}>
-            7-Day Risk: {futureRisk.next7Days}
+          <Badge tone={futureRisk?.next7Days === 'HIGH' ? 'danger' : futureRisk?.next7Days === 'MEDIUM' ? 'warning' : 'neon'}>
+            7-Day Risk: {futureRisk?.next7Days || 'N/A'}
           </Badge>
         </div>
       </div>
