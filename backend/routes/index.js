@@ -8,6 +8,7 @@ const alertRoutes = require('./alert.routes');
 const blockchainRoutes = require('./blockchain.routes');
 const aiRecommendationRoutes = require('./aiRecommendation.routes');
 const aiHealthRoutes = require('./aiHealth.routes');
+const adherenceRoutes = require('./adherence.routes');
 
 const router = express.Router();
 
@@ -19,5 +20,6 @@ router.use('/blockchain', blockchainRoutes);
 router.use('/recommendations', aiRecommendationRoutes);
 router.use('/health', aiHealthRoutes);
 router.use('/patient', aiHealthRoutes);
+router.use('/adherence', adherenceRoutes);
 
 module.exports = router;

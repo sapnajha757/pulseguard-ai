@@ -57,6 +57,9 @@ app.use(errorHandler);
 const startServer = async () => {
   await connectDB();
 
+  const { initReminderEngine } = require('./services/reminder.service');
+  initReminderEngine();
+
   const server = app.listen(env.port, () => {
     logger.info(`PulseGuard AI backend running in ${env.nodeEnv} mode on port ${env.port}`);
   });
