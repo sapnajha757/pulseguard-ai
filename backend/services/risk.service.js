@@ -43,6 +43,10 @@ async function calculateRisk(userId) {
   let riskLevel = 'LOW';
   if (adherenceScore < 50) riskLevel = 'HIGH';
   else if (adherenceScore < 80) riskLevel = 'MEDIUM';
+  // Trigger emergency alert when risk is HIGH
+  if (riskLevel === 'HIGH') {
+    await triggerEmergencyAlert(userId, { riskLevel, adherenceScore });
+  }
 
   const analysis = `Medication adherence is ${adherenceScore}%.`;
   const recommendations = generateAIRecommendation(riskLevel);
