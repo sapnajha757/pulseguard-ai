@@ -27,12 +27,9 @@ const getRiskById = asyncHandler(async (req, res) => {
   res.status(501).json({ success: false, message: 'Not implemented' });
 });
 
-// @desc    Get the latest risk assessment for current user
-// @route   GET /api/v1/risk/latest
-// @access  Private
 const getLatestRisk = asyncHandler(async (req, res) => {
-  // TODO: delegate to riskService.findLatestForUser(req.user.id)
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  const latest = await riskService.getLatestRisk(req.user.id);
+  res.status(200).json({ success: true, data: latest });
 });
 
 module.exports = {
