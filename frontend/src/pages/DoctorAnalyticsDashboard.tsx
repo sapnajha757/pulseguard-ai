@@ -83,8 +83,8 @@ export default function DoctorAnalyticsDashboard() {
     if (search.trim() !== '') {
       result = result.filter(
         (p) =>
-          p.name.toLowerCase().includes(search.toLowerCase()) ||
-          p.condition.toLowerCase().includes(search.toLowerCase())
+          (p.name || '').toLowerCase().includes(search.toLowerCase()) ||
+          (p.condition || '').toLowerCase().includes(search.toLowerCase())
       );
     }
 
