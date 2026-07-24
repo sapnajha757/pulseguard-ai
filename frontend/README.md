@@ -1,16 +1,215 @@
-# React + Vite
+# ❤️ PulseGuard AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### **Predict. Prevent. Protect.**
 
-Currently, two official plugins are available:
+> An AI-powered medication adherence and health risk prediction platform that helps patients take medicines on time, predicts potential health risks, and alerts caregivers during emergencies.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> 🚧 **Project Status:** Prototype (Not Deployed Yet)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📌 Problem Statement
 
-## Expanding the ESLint configuration
+Millions of patients miss their medications every year, leading to poor health outcomes, emergency hospitalizations, and increased healthcare costs.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Existing reminder apps only send notifications. If patients ignore them, no further action is taken.
+
+PulseGuard AI solves this by combining medication reminders, AI-powered risk prediction, caregiver monitoring, and emergency alerts into one platform.
+
+---
+
+# ✨ Features
+
+- 💊 Smart Medicine Reminders
+- 🤖 AI-Based Health Risk Prediction
+- 📊 Medication Adherence Tracking
+- 🚨 Emergency SOS Alerts
+- 👨‍👩‍👧 Caregiver Dashboard
+- 🔐 Secure JWT Authentication
+- 📈 Health Dashboard
+- 📁 Secure Health Records
+
+---
+
+# 👥 Users
+
+### 👤 Patient
+- Manage medicines
+- Receive reminders
+- View health dashboard
+- Check AI risk score
+- Trigger SOS alerts
+
+### 👨‍👩‍👧 Caregiver
+- Monitor adherence
+- Receive emergency alerts
+- View patient health trends
+
+### 👨‍⚕️ Doctor *(Future)*
+- Review reports
+- Monitor adherence
+- Update prescriptions
+
+---
+
+# 🤖 AI Workflow
+
+```text
+Patient Data
+      │
+      ▼
+Medicine Schedule
+      │
+      ▼
+Adherence Tracking
+      │
+      ▼
+Risk Prediction Engine
+      │
+      ▼
+Risk Score
+      │
+      ▼
+Emergency Alert
+```
+
+---
+
+# 🏗️ System Architecture
+
+```text
+React Frontend
+      │
+      ▼
+Express API
+      │
+      ▼
+Authentication
+      │
+      ▼
+MongoDB
+      │
+      ▼
+AI Risk Engine
+      │
+      ▼
+Emergency Alerts
+```
+
+---
+
+# 🛠️ Tech Stack
+
+### Frontend
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router
+
+### Backend
+- Node.js
+- Express.js
+- JWT
+- bcrypt
+
+### Database
+- MongoDB Atlas
+- Mongoose
+
+### Security
+- Helmet
+- Rate Limiter
+- CORS
+- Input Validation
+
+### AI
+- Rule-Based Risk Prediction Engine *(Prototype)*
+
+---
+
+# 📁 Project Structure
+
+```text
+PulseGuard-AI/
+│
+├── frontend/
+│   ├── src/
+│   ├── components/
+│   ├── pages/
+│   └── dashboard/
+│
+├── backend/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   └── services/
+│
+└── README.md
+```
+
+---
+
+# 🚀 Getting Started
+
+## Clone Repository
+
+```bash
+git clone https://github.com/your-username/PulseGuard-AI.git
+cd PulseGuard-AI
+```
+
+## Install Dependencies
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### Backend
+
+```bash
+cd backend
+npm install
+npm start
+```
+
+---
+
+# 🔒 Security
+
+- JWT Authentication
+- Password Hashing (bcrypt)
+- Protected APIs
+- Helmet
+- Rate Limiting
+- CORS
+
+---
+
+# 🔮 Future Scope
+
+- 🧠 ML-Based Risk Prediction
+- ⌚ Smartwatch Integration
+- 💬 AI Health Assistant
+- 📷 Medicine Image Recognition
+- 🏥 Hospital Integration
+- 🚑 Ambulance API
+- 📈 ECG & BP Monitoring
+- 📦 IoT Smart Pill Box
+
+---
+
+# 🎯 Vision
+
+PulseGuard AI aims to transform medication management from simple reminders into intelligent, predictive healthcare assistance—helping patients stay healthy while enabling caregivers to intervene before emergencies occur.
+
+---
+
+## 📄 License
+
+This project is developed for educational and hackathon purposes.
