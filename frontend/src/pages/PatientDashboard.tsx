@@ -15,6 +15,7 @@ import FutureRiskCard from '@/components/dashboard/FutureRiskCard';
 import MedicationReminderCard from '@/components/dashboard/MedicationReminderCard';
 import TodaysMedicines from '@/components/dashboard/TodaysMedicines';
 import AdherenceCalendar from '@/components/dashboard/AdherenceCalendar';
+import { todayMedicines } from '@/data/mockData';
 
 interface Medicine {
   _id: string;
@@ -49,7 +50,41 @@ export default function PatientDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const setDemoDefaults = () => {
+    const mockMeds = todayMedicines.map(m => ({
+      _id: m.id,
+      name: m.name,
+      dose: m.dose,
+      frequency: 'Daily',
+      time: m.time,
+      status: m.status,
+    }));
+    setMedicines(mockMeds as Medicine[]);
+    setRisk({
+      score: 18,
+      level: 'Low',
+      adherence: 94,
+      recommendation: 'Maintain current schedule and hydrations.',
+    });
+    setAlerts([
+      {
+        _id: 'demo_alert_1',
+        type: 'HEALTH_STABLE',
+        severity: 'LOW',
+        message: 'Medication adherence is optimal at 94%.',
+        createdAt: new Date().toISOString(),
+        status: 'ACTIVE',
+      },
+    ]);
+  };
+
   const fetchData = async () => {
+    if (user?.isDemo) {
+      setDemoDefaults();
+      setLoading(false);
+      return;
+    }
+
     try {
       const [medRes, riskRes, alertsRes] = await Promise.all([
         api.get<Medicine[]>('/medicines'),
@@ -62,7 +97,6 @@ export default function PatientDashboard() {
       setError(null);
     } catch (err: any) {
       console.error(err);
-      // Fail silently or set defaults so page still loads instead of showing generic error block
       setMedicines([]);
       setRisk(null);
       setAlerts([]);

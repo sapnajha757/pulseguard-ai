@@ -58,9 +58,25 @@ async function triggerEmergencyAlert(userId, riskData) {
   return alert;
 }
 
+/** Get a single alert by ID */
+async function getAlertById(alertId, userId) {
+  return Alert.findOne({ _id: alertId, user: userId });
+}
+
+/** Acknowledge an active alert */
+async function acknowledgeAlert(alertId, userId) {
+  const alert = await Alert.findOne({ _id: alertId, user: userId });
+  if (!alert) return null;
+  alert.status = 'ACKNOWLEDGED';
+  await alert.save();
+  return alert;
+}
+
 module.exports = {
   createAlert,
   getUserAlerts,
+  getAlertById,
+  acknowledgeAlert,
   resolveAlert,
   triggerEmergencyAlert,
 };

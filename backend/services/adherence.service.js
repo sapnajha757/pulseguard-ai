@@ -23,7 +23,9 @@ async function logMedicine(userId, { medicineId, status, notes = '', actualTime 
     date: today,
   });
 
+  let previousStatus = null;
   if (log) {
+    previousStatus = log.status;
     log.status = status;
     log.notes = notes;
     log.actualTime = actualTime || new Date();
@@ -40,12 +42,27 @@ async function logMedicine(userId, { medicineId, status, notes = '', actualTime 
     });
   }
 
-  // Update dose counts on Medicine
-  medicine.totalDoses = (medicine.totalDoses || 0) + 1;
-  if (status === 'TAKEN' || status === 'DELAYED') {
-    medicine.takenDoses = (medicine.takenDoses || 0) + 1;
-  } else if (status === 'MISSED' || status === 'SKIPPED') {
-    medicine.missedDoses = (medicine.missedDoses || 0) + 1;
+  // Update dose counts on Medicine safely
+  if (!previousStatus) {
+    medicine.totalDoses = (medicine.totalDoses || 0) + 1;
+    if (status === 'TAKEN' || status === 'DELAYED') {
+      medicine.takenDoses = (medicine.takenDoses || 0) + 1;
+    } else if (status === 'MISSED' || status === 'SKIPPED') {
+      medicine.missedDoses = (medicine.missedDoses || 0) + 1;
+    }
+  } else if (previousStatus !== status) {
+    // Deduct old status count
+    if (previousStatus === 'TAKEN' || previousStatus === 'DELAYED') {
+      medicine.takenDoses = Math.max(0, (medicine.takenDoses || 1) - 1);
+    } else if (previousStatus === 'MISSED' || previousStatus === 'SKIPPED') {
+      medicine.missedDoses = Math.max(0, (medicine.missedDoses || 1) - 1);
+    }
+    // Add new status count
+    if (status === 'TAKEN' || status === 'DELAYED') {
+      medicine.takenDoses = (medicine.takenDoses || 0) + 1;
+    } else if (status === 'MISSED' || status === 'SKIPPED') {
+      medicine.missedDoses = (medicine.missedDoses || 0) + 1;
+    }
   }
   await medicine.save();
 

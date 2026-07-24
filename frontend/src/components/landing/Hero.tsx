@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Activity,
   ShieldCheck,
@@ -11,6 +11,7 @@ import {
 import NeonButton from '@/components/ui/NeonButton';
 import Badge from '@/components/ui/Badge';
 import GlassCard from '@/components/ui/GlassCard';
+import { useAuth } from '@/context/AuthContext';
 
 const stats = [
   { value: '99.2%', label: 'Prediction accuracy' },
@@ -19,6 +20,8 @@ const stats = [
 ];
 
 export default function Hero() {
+  const { startDemoMode } = useAuth();
+  const navigate = useNavigate();
   return (
     <section className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
@@ -45,12 +48,17 @@ export default function Hero() {
                   <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                 </NeonButton>
               </Link>
-              <Link to="/dashboard/patient">
-                <NeonButton variant="outline" size="lg">
-                  <Play size={16} />
-                  See it in action
+              <button
+                onClick={() => {
+                  startDemoMode('patient');
+                  navigate('/dashboard/patient');
+                }}
+              >
+                <NeonButton variant="outline" size="lg" className="border-neon/40 text-neon hover:bg-neon/10">
+                  <Play size={16} className="fill-neon/30 text-neon" />
+                  Try Demo Mode
                 </NeonButton>
-              </Link>
+              </button>
             </div>
 
             <div className="mt-12 grid grid-cols-3 gap-4">

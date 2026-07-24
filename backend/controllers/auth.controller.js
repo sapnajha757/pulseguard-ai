@@ -15,10 +15,8 @@ const login = asyncHandler(async (req, res) => {
 
 // Logout
 const logout = asyncHandler(async (req, res) => {
-  res.status(501).json({
-    success: false,
-    message: 'Coming Soon',
-  });
+  const result = await authService.logout();
+  res.status(200).json({ success: true, ...result });
 });
 
 const getMe = asyncHandler(async (req, res) => {
@@ -32,10 +30,12 @@ const getMe = asyncHandler(async (req, res) => {
 
 // Forgot Password
 const forgotPassword = asyncHandler(async (req, res) => {
-  res.status(501).json({
-    success: false,
-    message: 'Coming Soon',
-  });
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ success: false, message: 'Email is required' });
+  }
+  const result = await authService.forgotPassword(email, req.headers.origin || 'http://localhost:5000');
+  res.status(200).json({ success: true, ...result });
 });
 
 // Update connection details

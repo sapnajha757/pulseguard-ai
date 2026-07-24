@@ -29,14 +29,4 @@ api.interceptors.response.use(
   },
 );
 
-
-// Request interceptor – attach JWT if present
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('pulseguard_token');
-  if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
 export default api;

@@ -48,17 +48,17 @@ async function createAuditLog(data) {
   if (!contract) {
     return { hash, transactionHash: '0x' + require('crypto').randomBytes(32).toString('hex') };
   }
-  const tx = await contract.addAuditRecord(hash, eventType);
+  const tx = await contract.addAuditRecord(hash, eventType, walletAddress);
   const receipt = await tx.wait();
   return { hash, transactionHash: receipt.transactionHash };
 }
 
 /** Alias for legacy import name used in existing code */
-async function addEvent(eventType, hash) {
+async function addEvent(eventType, hash, walletAddress = '0x0000000000000000000000000000000000000000') {
   if (!contract) {
     return '0x' + require('crypto').randomBytes(32).toString('hex');
   }
-  const tx = await contract.addAuditRecord(hash, eventType);
+  const tx = await contract.addAuditRecord(hash, eventType, walletAddress);
   const receipt = await tx.wait();
   return receipt.transactionHash;
 }

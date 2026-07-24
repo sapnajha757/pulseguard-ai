@@ -79,14 +79,24 @@ const deleteMedicine = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: {} });
 });
 
+const adherenceService = require('../services/adherence.service');
+
 /**
- * @desc   Log adherence for a medicine (placeholder for future feature)
+ * @desc   Log adherence for a medicine
  * @route  POST /api/v1/medicines/:id/log
  * @access Private
  */
 const logAdherence = asyncHandler(async (req, res) => {
-  // Not implemented yet – return 501
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  const { status, notes } = req.body;
+  if (!status) {
+    return res.status(400).json({ success: false, message: 'status is required' });
+  }
+  const result = await adherenceService.logMedicine(req.user.id, {
+    medicineId: req.params.id,
+    status,
+    notes,
+  });
+  res.status(200).json({ success: true, data: result });
 });
 
 module.exports = {
