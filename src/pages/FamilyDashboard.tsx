@@ -22,6 +22,9 @@ import AIHealthScoreCard from '@/components/dashboard/AIHealthScoreCard';
 import AIInsightsCard from '@/components/dashboard/AIInsightsCard';
 import FutureRiskCard from '@/components/dashboard/FutureRiskCard';
 import { familyAlerts, medicationHistory, emergencyContacts } from '@/data/mockData';
+import { useAuth } from '@/context/AuthContext';
+import React, { useState, useEffect } from 'react';
+import api from '@/services/api';
 
 const levelStyle = {
   critical: 'text-danger-400 border-danger/30 bg-danger/10',
@@ -30,167 +33,107 @@ const levelStyle = {
 };
 
 export default function FamilyDashboard() {
+  const { user } = useAuth();
+  const [patientData, setPatientData] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetchPatientData = async () => {
+    if (!user?.connectedPatients || user.connectedPatients.length === 0) return;
+    try {
+      setLoading(true);
+      const patientId = user.connectedPatients[0];
+      const [patientProfile, meds] = await Promise.all([
+        api.get(`/auth/me`), // we can also pull using connected reference
+        api.get(`/medicines?patientId=${patientId}`)
+      ]);
+      setPatientData({
+        medicines: meds.data || []
+      });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPatientData();
+  }, [user]);
+
   return (
     <DashboardLayout role="family">
       <PageHeader
-        badge="Watching over Priya Nair"
+        badge="Caregiver overview"
         title="Family Care Overview"
-        subtitle="Real-time status of your loved one. You'll be alerted the moment anything changes."
+        subtitle="Real-time monitoring panel for connected loved ones."
         action={<NotificationBell />}
       />
 
-      {/* Patient health status banner */}
-      <GlassCard glow="neon" scan className="mb-6 p-6">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-neon/20 to-accent/20 border border-white/10 font-display text-lg font-semibold text-white">
-                PN
-              </div>
-              <span className="absolute -bottom-1 -right-1 h-5 w-5 rounded-full border-2 border-base-800 bg-neon" />
-            </div>
+      <div className="grid gap-6 md:grid-cols-2 mb-6">
+        {/* Connect to loved one */}
+        <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+          <h3 className="text-lg font-semibold text-white mb-4">Connect to Patient</h3>
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault();
+              const target = e.target as HTMLFormElement;
+              const email = (target.elements.namedItem('patientEmail') as HTMLInputElement).value;
+
+              try {
+                const res = await api.post('/auth/connect-patient', { email });
+                alert(res.data?.message || 'Successfully connected to patient!');
+                window.location.reload();
+              } catch (err: any) {
+                alert(err.response?.data?.message || 'Error connecting to patient.');
+              }
+            }}
+            className="space-y-4"
+          >
             <div>
-              <h2 className="font-display text-xl font-semibold text-white">Priya Nair</h2>
-              <p className="text-sm text-slate-400">58 yrs · Hypertension · Monitored since Jan 2025</p>
-              <div className="mt-2 flex items-center gap-2">
-                <Badge tone="neon">
-                  <span className="h-1.5 w-1.5 rounded-full bg-neon animate-pulse" />
-                  Stable
-                </Badge>
-                <Badge tone="neutral">Risk: Low (18)</Badge>
-              </div>
+              <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Loved One's Email</label>
+              <input name="patientEmail" type="email" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="patient@email.com" />
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {[
-              { icon: HeartPulse, label: 'Heart', value: '72 bpm' },
-              { icon: Droplet, label: 'SpO₂', value: '98%' },
-              { icon: Activity, label: 'BP', value: '118/76' },
-              { icon: Footprints, label: 'Steps', value: '2,340' },
-            ].map((v) => (
-              <div key={v.label} className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-center">
-                <v.icon size={16} className="mx-auto text-neon" />
-                <p className="mt-1.5 text-xs text-slate-500">{v.label}</p>
-                <p className="text-sm font-semibold text-white">{v.value}</p>
+            <button type="submit" className="w-full rounded-xl bg-neon py-3 text-xs font-bold text-black hover:bg-neon/90 transition-all">
+              Link Loved One
+            </button>
+          </form>
+        </div>
+
+        {/* Linked Patient Profile */}
+        <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+          <h3 className="text-lg font-semibold text-white mb-4">Connected Patient Vitals</h3>
+          {user?.connectedPatients && user.connectedPatients.length > 0 ? (
+            <div className="space-y-3">
+              <p className="text-sm text-slate-300">Connected Patient Reference ID: <strong className="text-white">{user.connectedPatients[0]}</strong></p>
+              <p className="text-sm text-slate-300">Prescribed Medicines Count: <strong className="text-white">{patientData?.medicines?.length || 0}</strong></p>
+              <span className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1 text-xs font-medium bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
+                Connection Secured
+              </span>
+            </div>
+          ) : (
+            <p className="text-sm text-slate-400">No loved ones linked. Enter their email to monitor health metrics.</p>
+          )}
+        </div>
+      </div>
+
+      {user?.connectedPatients && user.connectedPatients.length > 0 && (
+        <Panel title="Loved One's Active Medications" icon={<Pill size={18} />}>
+          <div className="grid gap-4 md:grid-cols-2 mt-4">
+            {patientData?.medicines?.map((m: any) => (
+              <div key={m._id} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                <p className="text-sm font-semibold text-white">{m.name}</p>
+                <p className="text-xs text-slate-400">Dosage: {m.dosage} · Freq: {m.frequency}</p>
+                <p className="text-xs text-slate-500">Scheduled: {m.reminderTime}</p>
               </div>
             ))}
+            {(!patientData?.medicines || patientData.medicines.length === 0) && (
+              <p className="text-slate-400">No medications logged for patient.</p>
+            )}
           </div>
-        </div>
-      </GlassCard>
-
-      {/* AI Health Intelligence Overview */}
-      <div className="mb-6 space-y-6">
-        <AIHealthScoreCard />
-        <div className="grid gap-6 md:grid-cols-2">
-          <AIInsightsCard />
-          <FutureRiskCard />
-        </div>
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-3">
-        {/* Left — alerts + med history */}
-        <div className="space-y-6 lg:col-span-2">
-          <Panel title="Alerts" icon={<Bell size={18} />}>
-            <div className="space-y-3">
-              {familyAlerts.map((a) => (
-                <div
-                  key={a.id}
-                  className="flex items-start gap-4 rounded-xl border border-white/10 bg-white/[0.03] p-4"
-                >
-                  <div className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border ${levelStyle[a.level]}`}>
-                    {a.level === 'warning' ? <AlertTriangle size={16} /> : <Bell size={16} />}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium text-white">{a.title}</p>
-                      <span className="text-xs text-slate-500">{a.time}</span>
-                    </div>
-                    <p className="mt-0.5 text-xs text-slate-400">{a.detail}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Panel>
-
-          <Panel title="Medication History" icon={<Pill size={18} />}>
-            <div className="space-y-2">
-              {medicationHistory.map((m) => (
-                <div
-                  key={m.id}
-                  className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] p-3.5"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-neon/10 border border-neon/20">
-                      <Pill size={16} className="text-neon" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-white">{m.name} <span className="text-slate-500">· {m.dose}</span></p>
-                      <p className="text-xs text-slate-500">{m.date}</p>
-                    </div>
-                  </div>
-                  {m.status === 'taken' ? (
-                    <span className="flex items-center gap-1.5 text-xs text-neon">
-                      <CheckCircle2 size={14} />
-                      Taken
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-1.5 text-xs text-danger-400">
-                      <XCircle size={14} />
-                      Missed
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </Panel>
-        </div>
-
-        {/* Right — emergency contacts */}
-        <div className="space-y-6">
-          <Panel title="Emergency Contacts" icon={<Phone size={18} />}>
-            <div className="space-y-3">
-              {emergencyContacts.map((c) => (
-                <div
-                  key={c.id}
-                  className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] p-4"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-neon/20 to-accent/20 border border-white/10 font-display text-xs font-semibold text-white">
-                      {c.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-white">{c.name}</p>
-                      <p className="text-xs text-slate-500">{c.relation}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className={`h-2 w-2 rounded-full ${c.available ? 'bg-neon animate-pulse' : 'bg-slate-600'}`} />
-                    <a
-                      href={`tel:${c.phone}`}
-                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-neon/30 bg-neon/10 text-neon transition hover:bg-neon/20 hover:shadow-neon-sm"
-                      aria-label={`Call ${c.name}`}
-                    >
-                      <Phone size={15} />
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Panel>
-
-          <Panel title="Care Circle" icon={<Users size={18} />}>
-            <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 border border-accent/20">
-                <ShieldCheck size={18} className="text-accent-400" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-white">3 members connected</p>
-                <p className="text-xs text-slate-500">View-only access to Priya's vitals</p>
-              </div>
-            </div>
-          </Panel>
-        </div>
-      </div>
+        </Panel>
+      )}
     </DashboardLayout>
+  );
+}
   );
 }

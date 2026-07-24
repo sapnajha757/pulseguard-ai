@@ -21,6 +21,9 @@ import AIHealthScoreCard from '@/components/dashboard/AIHealthScoreCard';
 import AIInsightsCard from '@/components/dashboard/AIInsightsCard';
 import FutureRiskCard from '@/components/dashboard/FutureRiskCard';
 import { highRiskPatients, doctorAlerts, recentReports } from '@/data/mockData';
+import { Routes, Route } from 'react-router-dom';
+import api from '@/services/api';
+import React, { useState, useEffect } from 'react';
 
 const levelStyle = {
   critical: 'text-danger-400 border-danger/30 bg-danger/10',
@@ -48,154 +51,174 @@ const trendColor = {
 
 export default function DoctorDashboard() {
   const { user } = useAuth();
+  const [patients, setPatients] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // Fetch connected patients
+  const fetchPatients = async () => {
+    try {
+      setLoading(true);
+      const res = await api.get('/auth/me');
+      if (res.data?.user?.connectedPatients) {
+        // Query details for connected patients
+        const details = await Promise.all(
+          res.data.user.connectedPatients.map(async (pId: string) => {
+            try {
+              const meds = await api.get(`/medicines?patientId=${pId}`);
+              return { id: pId, medicines: meds.data || [] };
+            } catch {
+              return { id: pId, medicines: [] };
+            }
+          })
+        );
+        setPatients(details);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPatients();
+  }, []);
 
   return (
     <DashboardLayout role="doctor">
-      <PageHeader
-        badge="Clinician console"
-        title={user?.name ? `Dr. ${user.name}` : 'Medical Clinician'}
-        subtitle="You have 2 critical alerts and 4 patients requiring attention today."
-        action={<NotificationBell />}
-      />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <PageHeader
+                badge="Clinician console"
+                title={user?.name ? `Dr. ${user.name}` : 'Medical Clinician'}
+                subtitle="Manage and prescribe medications for your connected patients."
+                action={<NotificationBell />}
+              />
 
-      {/* Stats */}
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard icon={Users} label="Active Patients" value={48} trend="up" trendLabel="+3 this week" accent="neon" />
-        <StatCard icon={AlertTriangle} label="Critical Alerts" value={2} trend="up" trendLabel="2 new" accent="danger" />
-        <StatCard icon={HeartPulse} label="Avg Risk Score" value={34} unit="/100" trend="down" trendLabel="-6%" accent="accent" />
-        <StatCard icon={FileText} label="Pending Reports" value={7} trend="stable" trendLabel="Unchanged" accent="warning" />
-      </div>
+              {/* Stats */}
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                <StatCard icon={Users} label="Active Patients" value={patients.length} trend="stable" trendLabel="Real-time" accent="neon" />
+                <StatCard icon={AlertTriangle} label="Critical Alerts" value={0} trend="stable" trendLabel="Stable" accent="danger" />
+                <StatCard icon={HeartPulse} label="Avg Risk Score" value={18} unit="/100" trend="stable" trendLabel="Calculated" accent="accent" />
+                <StatCard icon={FileText} label="Pending Reports" value={0} trend="stable" trendLabel="None" accent="warning" />
+              </div>
 
-      {/* AI Intelligence Console */}
-      <div className="mt-6 space-y-6">
-        <AIHealthScoreCard />
-        <div className="grid gap-6 md:grid-cols-2">
-          <AIInsightsCard />
-          <FutureRiskCard />
-        </div>
-      </div>
+              {/* Action Panels */}
+              <div className="mt-6 grid gap-6 md:grid-cols-2">
+                {/* Connect Patient Card */}
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+                  <h3 className="text-lg font-semibold text-white mb-4">Connect Patient</h3>
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const target = e.target as HTMLFormElement;
+                      const email = (target.elements.namedItem('patientEmail') as HTMLInputElement).value;
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
-        {/* Left — high risk + reports */}
-        <div className="space-y-6 lg:col-span-2">
-          <Panel
-            title="High Risk Patients"
-            icon={<AlertTriangle size={18} />}
-            action={<NeonButton variant="ghost" size="sm">View all</NeonButton>}
-          >
-            <div className="space-y-3">
-              {highRiskPatients.map((p) => {
-                const Trend = trendIcon[p.trend];
-                return (
-                  <div
-                    key={p.id}
-                    className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-neon/20 hover:bg-white/[0.05]"
+                      try {
+                        const res = await api.post('/auth/connect-patient', { email });
+                        alert(res.data?.message || 'Patient connected successfully!');
+                        fetchPatients();
+                      } catch (err: any) {
+                        alert(err.response?.data?.message || 'Failed to connect patient. Check email.');
+                      }
+                    }}
+                    className="space-y-4"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-neon/20 to-accent/20 border border-white/10 font-display text-sm font-semibold text-white">
-                        {p.name.split(' ').map((n) => n[0]).join('')}
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Patient Email</label>
+                      <input name="patientEmail" type="email" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="patient@email.com" />
+                    </div>
+                    <button type="submit" className="w-full rounded-xl bg-neon py-3 text-xs font-bold text-black hover:bg-neon/90 transition-all">
+                      Add and Connect Patient
+                    </button>
+                  </form>
+                </div>
+
+                {/* Prescribe Medicine Card */}
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+                  <h3 className="text-lg font-semibold text-white mb-4">Prescribe Medication</h3>
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const target = e.target as HTMLFormElement;
+                      const patientId = (target.elements.namedItem('patientId') as HTMLSelectElement).value;
+                      const name = (target.elements.namedItem('medName') as HTMLInputElement).value;
+                      const dosage = (target.elements.namedItem('medDose') as HTMLInputElement).value;
+                      const frequency = (target.elements.namedItem('medFreq') as HTMLInputElement).value;
+                      const reminderTime = (target.elements.namedItem('medTime') as HTMLInputElement).value;
+                      const priority = (target.elements.namedItem('priority') as HTMLSelectElement).value;
+
+                      try {
+                        await api.post('/medicines', {
+                          patientId,
+                          name,
+                          dosage,
+                          frequency,
+                          reminderTime,
+                          priority,
+                          startDate: new Date(),
+                        });
+                        alert('Prescription successfully sent to patient dashboard!');
+                        fetchPatients();
+                      } catch (err: any) {
+                        alert(err.response?.data?.message || 'Error prescribing medicine.');
+                      }
+                    }}
+                    className="space-y-4"
+                  >
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Target Connected Patient</label>
+                      <select name="patientId" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none bg-base-800">
+                        {user?.connectedPatients?.map((pId: string) => (
+                          <option key={pId} value={pId}>{pId}</option>
+                        ))}
+                        {(!user?.connectedPatients || user.connectedPatients.length === 0) && (
+                          <option value="">No connected patients found</option>
+                        )}
+                      </select>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Med Name</label>
+                        <input name="medName" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="e.g. Lipitor" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-white">{p.name}</p>
-                        <p className="text-xs text-slate-500">
-                          {p.age} yrs · {p.condition}
-                        </p>
+                        <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Dosage</label>
+                        <input name="medDose" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="e.g. 10mg" />
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <div className="hidden text-right sm:block">
-                        <p className="text-xs text-slate-500">Risk</p>
-                        <p className="font-display text-lg font-semibold text-white">{p.risk}</p>
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="col-span-2">
+                        <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Frequency</label>
+                        <input name="medFreq" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="Once daily" />
                       </div>
-                      <div className={`flex items-center gap-1 text-xs ${trendColor[p.trend]}`}>
-                        <Trend size={14} />
+                      <div>
+                        <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Time</label>
+                        <input name="medTime" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="08:00" />
                       </div>
-                      <Badge tone={p.risk >= 70 ? 'danger' : 'warning'}>
-                        {p.risk >= 70 ? 'Critical' : 'Elevated'}
-                      </Badge>
-                      <button className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-slate-400 transition hover:border-neon/30 hover:text-neon">
-                        <ArrowUpRight size={15} />
-                      </button>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-          </Panel>
-
-          <Panel title="Recent Reports" icon={<FileText size={18} />}>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm">
-                <thead>
-                  <tr className="border-b border-white/10 text-xs uppercase tracking-wider text-slate-500">
-                    <th className="pb-3 font-medium">Patient</th>
-                    <th className="pb-3 font-medium">Type</th>
-                    <th className="pb-3 font-medium">Date</th>
-                    <th className="pb-3 text-right font-medium">Status</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
-                  {recentReports.map((r) => (
-                    <tr key={r.id} className="transition hover:bg-white/[0.03]">
-                      <td className="py-3.5 font-medium text-white">{r.patient}</td>
-                      <td className="py-3.5 text-slate-400">{r.type}</td>
-                      <td className="py-3.5 text-slate-500">{r.date}</td>
-                      <td className="py-3.5 text-right">
-                        <Badge tone={reportStatus[r.status]}>
-                          {r.status}
-                        </Badge>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </Panel>
-        </div>
-
-        {/* Right — alerts */}
-        <div className="space-y-6">
-          <Panel title="Live Alerts" icon={<Bell size={18} />}>
-            <div className="space-y-3">
-              {doctorAlerts.map((a) => (
-                <div
-                  key={a.id}
-                  className="rounded-xl border border-white/10 bg-white/[0.03] p-4"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium ${levelStyle[a.level]}`}>
-                      {a.level === 'critical' ? <AlertTriangle size={11} /> : <Bell size={11} />}
-                      {a.level}
-                    </span>
-                    <span className="text-xs text-slate-500">{a.time}</span>
-                  </div>
-                  <p className="mt-3 text-sm font-medium text-white">{a.patient}</p>
-                  <p className="mt-1 text-xs text-slate-400">{a.message}</p>
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Priority</label>
+                      <select name="priority" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none bg-base-800">
+                        <option value="CRITICAL">Critical</option>
+                        <option value="HIGH">High</option>
+                        <option value="MEDIUM">Medium</option>
+                        <option value="LOW">Low</option>
+                      </select>
+                    </div>
+                    <button type="submit" className="w-full rounded-xl bg-neon py-3 text-xs font-bold text-black hover:bg-neon/90 transition-all">
+                      Prescribe
+                    </button>
+                  </form>
                 </div>
-              ))}
-            </div>
-          </Panel>
-
-          <Panel title="Quick Actions" icon={<Stethoscope size={18} />}>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { label: 'New Round', icon: Users },
-                { label: 'Review Lab', icon: FileText },
-                { label: 'Patient Notes', icon: Activity },
-                { label: 'Schedule', icon: Bell },
-              ].map((q) => (
-                <button
-                  key={q.label}
-                  className="flex flex-col items-start gap-2 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-left transition hover:border-neon/30 hover:bg-neon/5"
-                >
-                  <q.icon size={18} className="text-neon" />
-                  <span className="text-xs font-medium text-slate-300">{q.label}</span>
-                </button>
-              ))}
-            </div>
-          </Panel>
-        </div>
-      </div>
+              </div>
+            </>
+          }
+        />
+      </Routes>
     </DashboardLayout>
   );
 }

@@ -191,8 +191,67 @@ export default function PatientDashboard() {
           path="/family"
           element={
             <section className="mt-6">
-              <PageHeader title="Family Circle Access" subtitle="Manage sharing parameters for family members." />
-              <p className="text-slate-400">No caregivers connected yet. Add care partners to share alerts.</p>
+              <PageHeader title="Family Circle & Care Connections" subtitle="Connect family members to watch over you." />
+              
+              <div className="grid gap-6 md:grid-cols-2">
+                {/* Connection Form */}
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+                  <h3 className="text-lg font-semibold text-white mb-4">Add Family Caregiver</h3>
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const target = e.target as HTMLFormElement;
+                      const name = (target.elements.namedItem('familyName') as HTMLInputElement).value;
+                      const relation = (target.elements.namedItem('relation') as HTMLInputElement).value;
+                      const email = (target.elements.namedItem('familyEmail') as HTMLInputElement).value;
+
+                      try {
+                        const res = await api.put('/auth/profile/update', {
+                          familyDetails: { name, relation, email, connected: false }
+                        });
+                        alert('Caregiver info saved. They can now link to your profile using ' + email);
+                        window.location.reload();
+                      } catch (err: any) {
+                        alert(err.response?.data?.message || 'Error updating profile');
+                      }
+                    }}
+                    className="space-y-4"
+                  >
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Full Name</label>
+                      <input name="familyName" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="e.g. John Doe" />
+                    </div>
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Relationship</label>
+                      <input name="relation" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="e.g. Spouse, Son" />
+                    </div>
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Email Address</label>
+                      <input name="familyEmail" type="email" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="caregiver@email.com" />
+                    </div>
+                    <button type="submit" className="w-full rounded-xl bg-neon py-3 text-xs font-bold text-black hover:bg-neon/90 transition-all">
+                      Connect Caregiver
+                    </button>
+                  </form>
+                </div>
+
+                {/* Connection Status */}
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+                  <h3 className="text-lg font-semibold text-white mb-4">Connected Family Vitals</h3>
+                  {user?.familyDetails?.name ? (
+                    <div className="space-y-3">
+                      <p className="text-sm text-slate-300">Name: <strong className="text-white">{user.familyDetails.name}</strong></p>
+                      <p className="text-sm text-slate-300">Relation: <strong className="text-white">{user.familyDetails.relation}</strong></p>
+                      <p className="text-sm text-slate-300">Email: <strong className="text-white">{user.familyDetails.email}</strong></p>
+                      <span className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1 text-xs font-medium ${user.familyDetails.connected ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border-amber-500/30'}`}>
+                        {user.familyDetails.connected ? 'Linked' : 'Awaiting Connection'}
+                      </span>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-slate-400">No caregiver connected. Fill in the details to invite.</p>
+                  )}
+                </div>
+              </div>
             </section>
           }
         />
@@ -202,10 +261,97 @@ export default function PatientDashboard() {
           path="/settings"
           element={
             <section className="mt-6">
-              <PageHeader title="Profile Settings" subtitle="Edit contact numbers and reminder alarms." />
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
-                <p className="text-sm text-slate-300">Name: <strong className="text-white">{user?.name}</strong></p>
-                <p className="text-sm text-slate-300 mt-2">Email: <strong className="text-white">{user?.email}</strong></p>
+              <PageHeader title="Profile & Clinical Setup" subtitle="Edit details and connect clinicians." />
+              
+              <div className="grid gap-6 md:grid-cols-2">
+                {/* Disease Info and Doctor Form */}
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6 space-y-6">
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-3">Clinician details</h3>
+                    <form
+                      onSubmit={async (e) => {
+                        e.preventDefault();
+                        const target = e.target as HTMLFormElement;
+                        const name = (target.elements.namedItem('docName') as HTMLInputElement).value;
+                        const specialty = (target.elements.namedItem('docSpec') as HTMLInputElement).value;
+                        const email = (target.elements.namedItem('docEmail') as HTMLInputElement).value;
+
+                        try {
+                          await api.put('/auth/profile/update', {
+                            doctorDetails: { name, specialty, email, connected: false }
+                          });
+                          alert('Clinician info saved. They can now link to your profile using ' + email);
+                          window.location.reload();
+                        } catch (err: any) {
+                          alert(err.response?.data?.message || 'Error updating profile');
+                        }
+                      }}
+                      className="space-y-4"
+                    >
+                      <div>
+                        <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Doctor Name</label>
+                        <input name="docName" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="Dr. Smith" />
+                      </div>
+                      <div>
+                        <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Specialty</label>
+                        <input name="docSpec" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="Cardiologist" />
+                      </div>
+                      <div>
+                        <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Doctor Email</label>
+                        <input name="docEmail" type="email" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="doctor@hospital.com" />
+                      </div>
+                      <button type="submit" className="w-full rounded-xl bg-neon py-3 text-xs font-bold text-black hover:bg-neon/90 transition-all">
+                        Link Doctor
+                      </button>
+                    </form>
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6 space-y-6">
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-3">Disease details</h3>
+                    <form
+                      onSubmit={async (e) => {
+                        e.preventDefault();
+                        const target = e.target as HTMLFormElement;
+                        const condition = (target.elements.namedItem('condition') as HTMLInputElement).value;
+                        const severity = (target.elements.namedItem('severity') as HTMLSelectElement).value;
+                        const diagnosedYear = (target.elements.namedItem('year') as HTMLInputElement).value;
+
+                        try {
+                          await api.put('/auth/profile/update', {
+                            diseaseInfo: { condition, severity, diagnosedYear }
+                          });
+                          alert('Disease details updated.');
+                          window.location.reload();
+                        } catch (err: any) {
+                          alert(err.response?.data?.message || 'Error updating profile');
+                        }
+                      }}
+                      className="space-y-4"
+                    >
+                      <div>
+                        <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Condition</label>
+                        <input name="condition" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="e.g. Hypertension, Diabetes" />
+                      </div>
+                      <div>
+                        <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Severity</label>
+                        <select name="severity" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none bg-base-800">
+                          <option value="Mild">Mild</option>
+                          <option value="Moderate">Moderate</option>
+                          <option value="Severe">Severe</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Diagnosed Year</label>
+                        <input name="year" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="2023" />
+                      </div>
+                      <button type="submit" className="w-full rounded-xl bg-neon py-3 text-xs font-bold text-black hover:bg-neon/90 transition-all">
+                        Update Vitals
+                      </button>
+                    </form>
+                  </div>
+                </div>
               </div>
             </section>
           }
