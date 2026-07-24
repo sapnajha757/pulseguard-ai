@@ -67,9 +67,7 @@ export default function AuthLayout({
       <div className="flex min-h-screen items-center justify-center px-4 py-12 sm:px-6">
         <div className="w-full max-w-md">
           <div className="mb-8 lg:hidden">
-            <Link to="/">
-              <Logo size="md" />
-            </Link>
+            <Logo size="md" />
           </div>
           <div className="mb-8">
             <h1 className="font-display text-2xl font-semibold text-white sm:text-3xl">
