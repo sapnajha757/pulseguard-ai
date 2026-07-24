@@ -55,13 +55,17 @@ export default function PatientDashboard() {
         api.get<Risk>('/risk/latest'),
         api.get<Alert[]>('/alerts'),
       ]);
-      setMedicines(medRes.data);
-      setRisk(riskRes.data);
-      setAlerts(alertsRes.data);
+      setMedicines(medRes.data || []);
+      setRisk(riskRes.data || null);
+      setAlerts(alertsRes.data || []);
       setError(null);
     } catch (err: any) {
       console.error(err);
-      setError('Unable to load health data.');
+      // Fail silently or set defaults so page still loads instead of showing generic error block
+      setMedicines([]);
+      setRisk(null);
+      setAlerts([]);
+      setError(null);
     } finally {
       setLoading(false);
     }

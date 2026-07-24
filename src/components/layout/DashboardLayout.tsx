@@ -13,6 +13,7 @@ import {
   HeartPulse,
 } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
+import { useAuth } from '@/context/AuthContext';
 
 type NavItem = {
   to: string;
@@ -51,12 +52,6 @@ const roleLabels: Record<string, string> = {
   family: 'Family',
 };
 
-const roleNames: Record<string, string> = {
-  patient: 'Priya Nair',
-  doctor: 'Dr. Aanya Sharma',
-  family: 'Ravi Nair',
-};
-
 export default function DashboardLayout({
   role,
   children,
@@ -64,9 +59,13 @@ export default function DashboardLayout({
   role: 'patient' | 'doctor' | 'family';
   children: ReactNode;
 }) {
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const items = navByRole[role];
+
+  // Derive dynamic user profile name
+  const profileName = user?.name || (role === 'doctor' ? 'Medical Clinician' : role === 'family' ? 'Family Member' : 'Patient');
 
   return (
     <div className="relative min-h-screen">
@@ -92,7 +91,7 @@ export default function DashboardLayout({
           <div className="px-4">
             <div className="glass rounded-xl px-4 py-3">
               <p className="text-xs uppercase tracking-wider text-slate-500">{roleLabels[role]}</p>
-              <p className="mt-0.5 text-sm font-medium text-white">{roleNames[role]}</p>
+              <p className="mt-0.5 text-sm font-medium text-white">{profileName}</p>
             </div>
           </div>
 
