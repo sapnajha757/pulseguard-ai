@@ -8,6 +8,7 @@ import {
 
 function getNavItems(role) {
   const common = [
+    { to: '/abha', label: 'ABHA Link', icon: Shield },
     { to: '/profile', label: 'Profile', icon: User },
   ]
   if (role === 'doctor') {

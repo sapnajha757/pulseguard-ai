@@ -20,6 +20,7 @@ import Medicines from './pages/Medicines'
 import Risk from './pages/Risk'
 import Alerts from './pages/Alerts'
 import Profile from './pages/Profile'
+import AbhaIntegration from './pages/AbhaIntegration'
 
 export default function App() {
   return (
@@ -46,6 +47,7 @@ export default function App() {
                 <Route path="/risk" element={<Risk />} />
                 <Route path="/alerts" element={<Alerts />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/abha" element={<AbhaIntegration />} />
               </Route>
             </Route>
 
