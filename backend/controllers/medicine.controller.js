@@ -1,53 +1,74 @@
-// controllers/medicine.controller.js
-// Route handlers only — business logic lives in services/medicine.service.js.
+// backend/controllers/medicine.controller.js
+
 const asyncHandler = require('express-async-handler');
-// const medicineService = require('../services/medicine.service');
+const medicineService = require('../services/medicine.service');
 
-// @desc    Create a new medicine entry
-// @route   POST /api/v1/medicines
-// @access  Private
+/**
+ * @desc   Create a new medicine entry
+ * @route  POST /api/v1/medicines
+ * @access Private (requires JWT)
+ */
 const createMedicine = asyncHandler(async (req, res) => {
-  // TODO: delegate to medicineService.create(req.user.id, req.body)
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  const medicine = await medicineService.addMedicine(req.body, req.user.id);
+  res.status(201).json({ success: true, data: medicine });
 });
 
-// @desc    Get all medicines for current user
-// @route   GET /api/v1/medicines
-// @access  Private
+/**
+ * @desc   Get all medicines for the authenticated user
+ * @route  GET /api/v1/medicines
+ * @access Private
+ */
 const getMedicines = asyncHandler(async (req, res) => {
-  // TODO: delegate to medicineService.findAllForUser(req.user.id, req.query)
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  const medicines = await medicineService.getMedicines(req.user.id);
+  res.status(200).json({ success: true, data: medicines });
 });
 
-// @desc    Get a single medicine by id
-// @route   GET /api/v1/medicines/:id
-// @access  Private
+/**
+ * @desc   Get a single medicine by ID (must belong to user)
+ * @route  GET /api/v1/medicines/:id
+ * @access Private
+ */
 const getMedicineById = asyncHandler(async (req, res) => {
-  // TODO: delegate to medicineService.findById(req.params.id)
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  const medicine = await medicineService.getMedicineById(req.params.id, req.user.id);
+  if (!medicine) {
+    return res.status(404).json({ success: false, message: 'Medicine not found' });
+  }
+  res.status(200).json({ success: true, data: medicine });
 });
 
-// @desc    Update a medicine entry
-// @route   PUT /api/v1/medicines/:id
-// @access  Private
+/**
+ * @desc   Update a medicine (only if owned by user)
+ * @route  PUT /api/v1/medicines/:id
+ * @access Private
+ */
 const updateMedicine = asyncHandler(async (req, res) => {
-  // TODO: delegate to medicineService.update(req.params.id, req.body)
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  const medicine = await medicineService.updateMedicine(req.params.id, req.body, req.user.id);
+  if (!medicine) {
+    return res.status(404).json({ success: false, message: 'Medicine not found or not authorized' });
+  }
+  res.status(200).json({ success: true, data: medicine });
 });
 
-// @desc    Delete a medicine entry
-// @route   DELETE /api/v1/medicines/:id
-// @access  Private
+/**
+ * @desc   Delete a medicine (only if owned by user)
+ * @route  DELETE /api/v1/medicines/:id
+ * @access Private
+ */
 const deleteMedicine = asyncHandler(async (req, res) => {
-  // TODO: delegate to medicineService.remove(req.params.id)
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  const medicine = await medicineService.deleteMedicine(req.params.id, req.user.id);
+  if (!medicine) {
+    return res.status(404).json({ success: false, message: 'Medicine not found or not authorized' });
+  }
+  res.status(200).json({ success: true, data: {} });
 });
 
-// @desc    Log medicine adherence (taken/missed/skipped)
-// @route   POST /api/v1/medicines/:id/log
-// @access  Private
+/**
+ * @desc   Log adherence for a medicine (placeholder for future feature)
+ * @route  POST /api/v1/medicines/:id/log
+ * @access Private
+ */
 const logAdherence = asyncHandler(async (req, res) => {
-  // TODO: delegate to medicineService.logAdherence(req.params.id, req.body)
+  // Not implemented yet – return 501
   res.status(501).json({ success: false, message: 'Not implemented' });
 });
 
