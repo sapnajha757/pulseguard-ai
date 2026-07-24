@@ -44,12 +44,21 @@ const medicineSchema = new mongoose.Schema(
         type:String,
         enum:["active","completed"],
         default:"active"
-    }
-
-},
-{
-    timestamps:true
-});
+    },
+    // New fields for priority‑weighted adherence
+    priority: {
+        type: String,
+        enum: ["CRITICAL","HIGH","MEDIUM","LOW"],
+        default: "MEDIUM"
+    },
+    totalDoses: { type: Number, default: 0 },
+    takenDoses: { type: Number, default: 0 },
+    missedDoses: { type: Number, default: 0 },
+    doctorNote: { type: String, default: "" },
+    blockchainHash: { type: String },
+    transactionHash: { type: String },
+    verifiedOnChain: { type: Date }
+}, { timestamps: true });
 
 
 module.exports = mongoose.model("Medicine", medicineSchema);

@@ -37,7 +37,25 @@ async function triggerEmergencyAlert(userId, riskData) {
     severity: 'HIGH',
     message,
   };
-  return createAlert(userId, alertData);
+  const alert = await createAlert(userId, alertData);
+
+  try {
+    const { createAuditLog } = require('./blockchain.service');
+    const auditRes = await createAuditLog({
+      userId,
+      eventType: 'EMERGENCY_ALERT',
+      alertType: 'SOS',
+      timestamp: Date.now(),
+    });
+    alert.blockchainHash = auditRes.hash;
+    alert.transactionHash = auditRes.transactionHash;
+    alert.verifiedOnChain = new Date();
+    await alert.save();
+  } catch (err) {
+    console.warn('⚠️ Blockchain logging failed for emergency alert:', err.message);
+  }
+
+  return alert;
 }
 
 module.exports = {

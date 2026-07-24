@@ -26,6 +26,9 @@ const alertSchema = new mongoose.Schema({
       relation: { type: String },
     },
   ],
+  blockchainHash: { type: String },
+  transactionHash: { type: String },
+  verifiedOnChain: { type: Date },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Alert', alertSchema);

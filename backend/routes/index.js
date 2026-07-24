@@ -1,14 +1,13 @@
-// routes/index.js
-console.log('🚀 Routes index loaded');
-// Aggregates all feature routers under a single mount point.
+// backend/routes/index.js
 const express = require('express');
 
-console.log('🔐 Auth routes loaded');
 const authRoutes = require('./auth.routes');
-console.log("Routes loaded");
 const medicineRoutes = require('./medicine.routes');
 const riskRoutes = require('./risk.routes');
 const alertRoutes = require('./alert.routes');
+const blockchainRoutes = require('./blockchain.routes');
+const aiRecommendationRoutes = require('./aiRecommendation.routes');
+const aiHealthRoutes = require('./aiHealth.routes');
 
 const router = express.Router();
 
@@ -16,5 +15,9 @@ router.use('/auth', authRoutes);
 router.use('/medicines', medicineRoutes);
 router.use('/risk', riskRoutes);
 router.use('/alerts', alertRoutes);
+router.use('/blockchain', blockchainRoutes);
+router.use('/recommendations', aiRecommendationRoutes);
+router.use('/health', aiHealthRoutes);
+router.use('/patient', aiHealthRoutes);
 
 module.exports = router;

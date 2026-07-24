@@ -1,7 +1,7 @@
 // backend/services/risk.service.js
 
 const Medicine = require('../models/Medicine.model');
-const Risk = require('../models/Risk.model');
+const { addEvent } = require('../blockchain/blockchain.service');
 
 /**
  * Simple rule‑based AI recommendation generator.

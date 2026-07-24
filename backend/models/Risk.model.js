@@ -33,6 +33,9 @@ const riskSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    blockchainHash: { type: String },
+    transactionHash: { type: String },
+    verifiedOnChain: { type: Date },
   },
   { timestamps: true }
 );

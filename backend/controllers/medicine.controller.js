@@ -10,6 +10,13 @@ const medicineService = require('../services/medicine.service');
  */
 const createMedicine = asyncHandler(async (req, res) => {
   const medicine = await medicineService.addMedicine(req.body, req.user.id);
+  const { createAuditLog } = require('../services/blockchain.service');
+  await createAuditLog({
+    userId: req.user.id,
+    walletAddress: req.user.walletAddress,
+    eventType: 'MEDICINE_CREATED',
+    timestamp: Date.now(),
+  });
   res.status(201).json({ success: true, data: medicine });
 });
 
