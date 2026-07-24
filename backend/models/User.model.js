@@ -49,6 +49,7 @@ const userSchema = new mongoose.Schema(
       name: String,
       specialty: String,
       email: String,
+      phone: String,
       connected: { type: Boolean, default: false },
       connectedDoctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
     },
@@ -56,6 +57,7 @@ const userSchema = new mongoose.Schema(
       name: String,
       relation: String,
       email: String,
+      phone: String,
       connected: { type: Boolean, default: false },
       connectedFamilyId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
     },
