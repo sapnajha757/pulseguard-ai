@@ -8,6 +8,8 @@ import RegisterPage from '@/pages/RegisterPage';
 import PatientDashboard from '@/pages/PatientDashboard';
 import DoctorDashboard from '@/pages/DoctorDashboard';
 import FamilyDashboard from '@/pages/FamilyDashboard';
+import DoctorAnalyticsDashboard from '@/pages/DoctorAnalyticsDashboard';
+import PatientAnalyticsPage from '@/pages/PatientAnalyticsPage';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/dashboard/patient/*" element={<PatientDashboard />} />
           <Route path="/dashboard/doctor/*" element={<DoctorDashboard />} />
           <Route path="/dashboard/family/*" element={<FamilyDashboard />} />
+          <Route path="/doctor/dashboard" element={<DoctorAnalyticsDashboard />} />
+          <Route path="/doctor/patient/:id" element={<PatientAnalyticsPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
