@@ -1,14 +1,18 @@
 // controllers/alert.controller.js
 // Route handlers only — dispatch logic lives in services/alert.service.js.
 const asyncHandler = require('express-async-handler');
-// const alertService = require('../services/alert.service');
+const alertService = require('../services/alert.service');
 
 // @desc    Manually trigger an emergency alert
 // @route   POST /api/v1/alerts
 // @access  Private
 const createAlert = asyncHandler(async (req, res) => {
-  // TODO: delegate to alertService.create(req.user.id, req.body)
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  const userId = req.user?.id || req.body.userId;
+  if (!userId) {
+    return res.status(400).json({ success: false, message: 'User ID is required' });
+  }
+  const alert = await alertService.create(userId, req.body);
+  res.status(201).json({ success: true, data: alert });
 });
 
 // @desc    Get all alerts for current user

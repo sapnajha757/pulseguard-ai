@@ -6,12 +6,15 @@ import NeonButton from '../components/ui/NeonButton'
 import RiskMeter from '../components/ui/RiskMeter'
 import Spinner from '../components/ui/Spinner'
 import { Activity, Brain, TrendingUp } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
+import EmergencySystem from '../components/EmergencySystem'
 
 function riskVariant(level) {
   return { low: 'success', moderate: 'warning', high: 'danger', critical: 'danger' }[level] || 'neutral'
 }
 
 export default function Risk() {
+  const { user } = useAuth()
   const [latest, setLatest] = useState(null)
   const [history, setHistory] = useState([])
   const [vitals, setVitals] = useState({ heartRate: 72, systolic: 118, diastolic: 76 })
@@ -155,6 +158,9 @@ export default function Risk() {
           )}
         </div>
       </GlassCard>
+
+      {/* Emergency System */}
+      <EmergencySystem userId={user?.id || 'default_user'} />
     </div>
   )
 }
