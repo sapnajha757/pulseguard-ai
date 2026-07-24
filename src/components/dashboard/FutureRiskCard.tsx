@@ -8,8 +8,9 @@ type Props = {
   next30Days?: string;
 };
 
-export default function FutureRiskCard({ next7Days = 'LOW', next30Days = 'MEDIUM' }: Props) {
+export default function FutureRiskCard({ next7Days, next30Days }: Props) {
   const getBadgeTone = (risk: string) => {
+    if (!risk) return 'neutral' as const;
     if (risk === 'HIGH') return 'danger' as const;
     if (risk === 'MEDIUM') return 'warning' as const;
     return 'neon' as const;
@@ -33,7 +34,7 @@ export default function FutureRiskCard({ next7Days = 'LOW', next30Days = 'MEDIUM
               <p className="text-sm font-semibold text-white">Short-term Outlook</p>
             </div>
           </div>
-          <Badge tone={getBadgeTone(next7Days)}>{next7Days}</Badge>
+          <Badge tone={getBadgeTone(next7Days || '')}>{next7Days || 'N/A'}</Badge>
         </div>
 
         <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] p-4">
@@ -46,7 +47,7 @@ export default function FutureRiskCard({ next7Days = 'LOW', next30Days = 'MEDIUM
               <p className="text-sm font-semibold text-white">Long-term Trajectory</p>
             </div>
           </div>
-          <Badge tone={getBadgeTone(next30Days)}>{next30Days}</Badge>
+          <Badge tone={getBadgeTone(next30Days || '')}>{next30Days || 'N/A'}</Badge>
         </div>
       </div>
     </GlassCard>

@@ -14,56 +14,10 @@ type Props = {
   timeline?: TimelineDay[];
 };
 
-const defaultTimeline: TimelineDay[] = [
-  {
-    day: 'Monday',
-    date: 'Jul 20',
-    medicines: [
-      { name: 'Insulin', status: 'taken', type: 'CRITICAL' },
-      { name: 'BP Tablet', status: 'missed', type: 'HIGH' },
-    ],
-    riskLevel: 'Medium',
-  },
-  {
-    day: 'Tuesday',
-    date: 'Jul 21',
-    medicines: [
-      { name: 'Insulin', status: 'taken', type: 'CRITICAL' },
-      { name: 'BP Tablet', status: 'taken', type: 'HIGH' },
-    ],
-    riskLevel: 'Low',
-  },
-  {
-    day: 'Wednesday',
-    date: 'Jul 22',
-    medicines: [
-      { name: 'Insulin', status: 'delayed', type: 'CRITICAL' },
-      { name: 'BP Tablet', status: 'taken', type: 'HIGH' },
-    ],
-    riskLevel: 'Low',
-  },
-  {
-    day: 'Thursday',
-    date: 'Jul 23',
-    medicines: [
-      { name: 'Insulin', status: 'emergency', type: 'CRITICAL' },
-      { name: 'BP Tablet', status: 'missed', type: 'HIGH' },
-    ],
-    riskLevel: 'High',
-    hasEmergency: true,
-  },
-  {
-    day: 'Friday',
-    date: 'Jul 24',
-    medicines: [
-      { name: 'Insulin', status: 'taken', type: 'CRITICAL' },
-      { name: 'BP Tablet', status: 'taken', type: 'HIGH' },
-    ],
-    riskLevel: 'Low',
-  },
-];
-
-export default function MedicationTimeline({ timeline = defaultTimeline }: Props) {
+export default function MedicationTimeline({ timeline }: Props) {
+  if (!timeline || timeline.length === 0) {
+    return null; // Hide medication history list from dashboard if no history is logged yet
+  }
   const getBadgeStyle = (status: string) => {
     switch (status) {
       case 'taken':

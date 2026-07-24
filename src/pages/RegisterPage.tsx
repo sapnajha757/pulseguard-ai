@@ -26,7 +26,7 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await register(name, email, password);
+      await register(name, email, password, role);
       navigate(`/dashboard/${role}`);
     } catch (err) {
       console.error('Registration failed', err);

@@ -7,13 +7,11 @@ type Props = {
 };
 
 export default function AIInsightsCard({
-  insights = [
-    'Insulin adherence dropped by 18% this week.',
-    'Critical medicines contribute 82% of current risk.',
-    'Emergency alerts increased compared to last month.',
-    'Morning doses are frequently missed.',
-  ],
+  insights,
 }: Props) {
+  if (!insights || insights.length === 0) {
+    return null; // Hide card if there are no dynamic insights
+  }
   return (
     <GlassCard glow="accent" scan className="p-6">
       <div className="flex items-center gap-2 mb-4">

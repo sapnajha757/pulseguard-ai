@@ -5,6 +5,7 @@ interface RegisterPayload {
   name: string;
   email: string;
   password: string;
+  role?: string;
 }
 interface LoginPayload {
   email: string;

@@ -12,17 +12,10 @@ type Props = {
   days?: CalendarDay[];
 };
 
-const defaultDays: CalendarDay[] = [
-  { dateNumber: 18, dayName: 'Sat', status: 'taken' },
-  { dateNumber: 19, dayName: 'Sun', status: 'taken' },
-  { dateNumber: 20, dayName: 'Mon', status: 'delayed' },
-  { dateNumber: 21, dayName: 'Tue', status: 'taken' },
-  { dateNumber: 22, dayName: 'Wed', status: 'missed' },
-  { dateNumber: 23, dayName: 'Thu', status: 'emergency' },
-  { dateNumber: 24, dayName: 'Fri', status: 'taken' },
-];
-
-export default function AdherenceCalendar({ days = defaultDays }: Props) {
+export default function AdherenceCalendar({ days }: Props) {
+  if (!days || days.length === 0) {
+    return null; // Hide monthly calendar from dashboard if no history is logged yet
+  }
   const getDayStyle = (status: string) => {
     switch (status) {
       case 'taken':

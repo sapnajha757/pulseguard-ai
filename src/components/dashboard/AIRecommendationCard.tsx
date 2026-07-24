@@ -18,19 +18,11 @@ type Props = {
 };
 
 export default function AIRecommendationCard({ data, isLoading, onRefresh }: Props) {
-  // Default values if data loading or fallback
-  const recommendationData: AIRecommendationData = data || {
-    healthScore: 84,
-    riskScore: 18,
-    complianceScore: 91,
-    recommendations: [
-      'Patient has high adherence to regular routines. Continue current regimen.',
-      'Schedule follow-up consultation if any mild side-effects occur.',
-    ],
-    summary: 'Patient is stable with good medication adherence.',
-  };
+  if (!data) {
+    return null; // Don't show recommendation card if no patient data is logged yet
+  }
 
-  const { healthScore, riskScore, complianceScore, recommendations, summary } = recommendationData;
+  const { healthScore, riskScore, complianceScore, recommendations, summary } = data;
 
   const getScoreColor = (score: number, inverse = false) => {
     const val = inverse ? 100 - score : score;

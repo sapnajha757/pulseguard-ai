@@ -16,14 +16,10 @@ type Props = {
   onLogAction?: (medicineId: string, status: 'TAKEN' | 'DELAYED' | 'SKIPPED') => void;
 };
 
-const defaultMedicines: MedicineItem[] = [
-  { id: 'm1', name: 'Insulin Injection', time: '08:00', priority: 'CRITICAL', status: 'taken' },
-  { id: 'm2', name: 'BP Control Statin', time: '12:00', priority: 'HIGH', status: 'delayed' },
-  { id: 'm3', name: 'Multivitamin', time: '14:00', priority: 'LOW', status: 'missed' },
-  { id: 'm4', name: 'Night Insulin', time: '21:00', priority: 'CRITICAL', status: 'upcoming' },
-];
-
-export default function TodaysMedicines({ medicines = defaultMedicines, onLogAction }: Props) {
+export default function TodaysMedicines({ medicines, onLogAction }: Props) {
+  if (!medicines || medicines.length === 0) {
+    return null; // Hide medication dashboard schedule if none are set
+  }
   const getBadgeStyle = (status: string) => {
     switch (status) {
       case 'taken':

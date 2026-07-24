@@ -12,11 +12,11 @@ type Props = {
 };
 
 export default function AIHealthScoreCard({
-  healthScore = 91,
-  riskScore = 18,
-  complianceScore = 94,
-  futureRisk = { next7Days: 'LOW', next30Days: 'MEDIUM' },
-  isBlockchainVerified = true,
+  healthScore,
+  riskScore,
+  complianceScore,
+  futureRisk,
+  isBlockchainVerified = false,
 }: Props) {
   const getScoreColor = (score: number, inverse = false) => {
     const val = inverse ? 100 - score : score;
@@ -45,21 +45,21 @@ export default function AIHealthScoreCard({
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className={`flex flex-col items-center justify-center p-4 rounded-xl border ${getScoreColor(healthScore)}`}>
+        <div className={`flex flex-col items-center justify-center p-4 rounded-xl border ${healthScore !== undefined ? getScoreColor(healthScore) : 'text-slate-400 border-white/10 bg-white/5'}`}>
           <span className="text-xs font-medium uppercase tracking-wider opacity-80">Health Score</span>
-          <span className="font-display text-4xl font-bold mt-1">{healthScore}</span>
+          <span className="font-display text-4xl font-bold mt-1">{healthScore !== undefined ? healthScore : '--'}</span>
           <span className="text-[10px] mt-0.5 opacity-70">Normalized Index</span>
         </div>
 
-        <div className={`flex flex-col items-center justify-center p-4 rounded-xl border ${getScoreColor(riskScore, true)}`}>
+        <div className={`flex flex-col items-center justify-center p-4 rounded-xl border ${riskScore !== undefined ? getScoreColor(riskScore, true) : 'text-slate-400 border-white/10 bg-white/5'}`}>
           <span className="text-xs font-medium uppercase tracking-wider opacity-80">Risk Score</span>
-          <span className="font-display text-4xl font-bold mt-1">{riskScore}</span>
+          <span className="font-display text-4xl font-bold mt-1">{riskScore !== undefined ? riskScore : '--'}</span>
           <span className="text-[10px] mt-0.5 opacity-70">Penalty Index</span>
         </div>
 
-        <div className={`flex flex-col items-center justify-center p-4 rounded-xl border ${getScoreColor(complianceScore)}`}>
+        <div className={`flex flex-col items-center justify-center p-4 rounded-xl border ${complianceScore !== undefined ? getScoreColor(complianceScore) : 'text-slate-400 border-white/10 bg-white/5'}`}>
           <span className="text-xs font-medium uppercase tracking-wider opacity-80">Compliance Score</span>
-          <span className="font-display text-4xl font-bold mt-1">{complianceScore}%</span>
+          <span className="font-display text-4xl font-bold mt-1">{complianceScore !== undefined ? `${complianceScore}%` : '--'}</span>
           <span className="text-[10px] mt-0.5 opacity-70">Weighted Adherence</span>
         </div>
       </div>
