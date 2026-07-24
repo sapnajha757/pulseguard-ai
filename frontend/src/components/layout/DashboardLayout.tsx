@@ -60,7 +60,7 @@ export default function DashboardLayout({
   role: 'patient' | 'doctor' | 'family';
   children: ReactNode;
 }) {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const items = navByRole[role];
@@ -124,13 +124,13 @@ export default function DashboardLayout({
           </nav>
 
           <div className="px-4 pb-6">
-            <NavLink
-              to="/"
-              className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-slate-400 transition-all hover:bg-danger/10 hover:text-danger-400"
+            <button
+              onClick={logout}
+              className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-slate-400 transition-all hover:bg-danger/10 hover:text-danger-400"
             >
               <LogOut size={18} />
               Sign out
-            </NavLink>
+            </button>
           </div>
         </div>
       </aside>
