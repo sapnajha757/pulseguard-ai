@@ -39,8 +39,6 @@ const userSchema = new mongoose.Schema(
     resetPasswordExpire: Date,
     walletAddress: {
       type: String,
-      required: false,
-      unique: true,
       trim: true,
       match: [/^0x[a-fA-F0-9]{40}$/, 'Please provide a valid Ethereum address'],
     },

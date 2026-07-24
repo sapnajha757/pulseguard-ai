@@ -1304,3 +1304,74 @@
     at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
 [2026-07-24T14:11:20.447Z] INFO: PulseGuard AI backend running in development mode on port 5000
 [2026-07-24T14:11:29.545Z] INFO: PulseGuard AI backend running in development mode on port 5000
+[2026-07-24T16:32:46.488Z] INFO: PulseGuard AI backend running in development mode on port 5000
+[2026-07-24T16:35:26.689Z] ERROR: SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)
+    at JSON.parse (<anonymous>)
+    at parse (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\body-parser\lib\types\json.js:96:19)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\body-parser\lib\read.js:128:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at invokeCallback (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\raw-body\index.js:238:16)
+    at done (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\raw-body\index.js:227:7)
+    at IncomingMessage.onEnd (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\raw-body\index.js:287:7)
+    at IncomingMessage.emit (node:events:509:28)
+    at endReadableNT (node:internal/streams/readable:1735:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+[2026-07-24T16:35:40.714Z] ERROR: Error: Invalid credentials
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:73:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:12:18
+[2026-07-24T16:35:54.319Z] ERROR: MongoServerError: E11000 duplicate key error collection: pulseguard.users index: walletAddress_1 dup key: { walletAddress: null }
+    at InsertOneOperation.handleOk (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\mongodb\lib\operations\insert.js:51:19)
+    at tryOperation (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\mongodb\lib\operations\execute_operation.js:214:34)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async executeOperation (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\mongodb\lib\operations\execute_operation.js:78:16)
+    at async Collection.insertOne (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\mongodb\lib\collection.js:154:16)
+[2026-07-24T16:36:39.890Z] ERROR: Uncaught Exception: listen EADDRINUSE: address already in use :::5000
+[2026-07-24T16:37:11.548Z] INFO: PulseGuard AI backend running in development mode on port 5000
+[2026-07-24T16:38:10.640Z] ERROR: Error: Invalid credentials
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:73:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:12:18
+[2026-07-24T16:38:10.915Z] ERROR: Error: Invalid credentials
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:73:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:12:18
+[2026-07-24T16:38:11.253Z] ERROR: Error: Invalid credentials
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:73:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:12:18
+[2026-07-24T16:38:11.506Z] ERROR: Error: Invalid credentials
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:73:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:12:18
+[2026-07-24T16:38:11.743Z] ERROR: Error: Invalid credentials
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:73:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:12:18
+[2026-07-24T16:38:43.002Z] ERROR: Error: User with this email already exists
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:42:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:6:18
+[2026-07-24T16:38:44.600Z] ERROR: Error: User with this email already exists
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:42:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:6:18
+[2026-07-24T16:38:44.875Z] ERROR: Error: User with this email already exists
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:42:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:6:18
+[2026-07-24T16:38:45.138Z] ERROR: Error: User with this email already exists
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:42:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:6:18
+[2026-07-24T16:38:45.398Z] ERROR: Error: User with this email already exists
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:42:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:6:18
+[2026-07-24T16:38:45.749Z] ERROR: Error: User with this email already exists
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:42:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:6:18
+[2026-07-24T16:42:13.903Z] ERROR: Uncaught Exception: listen EADDRINUSE: address already in use :::5000
+[2026-07-24T16:42:59.577Z] INFO: PulseGuard AI backend running in development mode on port 5000
+[2026-07-24T16:43:34.096Z] ERROR: Uncaught Exception: listen EADDRINUSE: address already in use :::5000

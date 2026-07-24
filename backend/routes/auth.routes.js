@@ -20,7 +20,7 @@ const router = express.Router();
 router.post('/register', register);
 router.post('/login', login);
 router.post('/forgot-password', forgotPassword);
-router.patch('/reset-password/:token', resetPassword);
+// router.patch('/reset-password/:token', resetPassword); // TODO: implement resetPassword controller
 
 // Protected routes
 router.get('/me', protect, getMe);

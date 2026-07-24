@@ -22,7 +22,19 @@ app.use(helmet());
 
 app.use(
   cors({
-    origin: env.clientUrl,
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps, curl)
+      if (!origin) return callback(null, true);
+      // In development, allow any localhost origin
+      if (env.nodeEnv === 'development' && /^https?:\/\/localhost(:\d+)?$/.test(origin)) {
+        return callback(null, true);
+      }
+      // In production, check against CLIENT_URL
+      if (origin === env.clientUrl) {
+        return callback(null, true);
+      }
+      callback(new Error('Not allowed by CORS'));
+    },
     credentials: true,
   })
 );
