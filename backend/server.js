@@ -33,6 +33,10 @@ app.use(
       if (/^https:\/\/pulseguard-ai.*\.vercel\.app$/.test(origin)) {
         return callback(null, true);
       }
+      // Allow any Netlify preview/production URL for this project
+      if (/^https:\/\/pulseguard-ai.*\.netlify\.app$/.test(origin)) {
+        return callback(null, true);
+      }
       // Check against CLIENT_URL (supports comma-separated list)
       const allowedOrigins = (env.clientUrl || '').split(',').map(s => s.trim()).filter(Boolean);
       if (allowedOrigins.includes(origin)) {

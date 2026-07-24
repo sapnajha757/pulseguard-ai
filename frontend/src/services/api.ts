@@ -2,10 +2,12 @@
 import axios from 'axios';
 
 // Base URL for all API calls
+// Uses VITE_API_URL env var if set, otherwise falls back to production Render backend
+const PRODUCTION_API = 'https://pulseguard-ai-v86p.onrender.com/api/v1';
 const api = axios.create({
   baseURL:
     import.meta.env.VITE_API_URL ||
-    (import.meta.env.DEV ? 'http://localhost:5000/api/v1' : '/api/v1'),
+    (import.meta.env.DEV ? 'http://localhost:5000/api/v1' : PRODUCTION_API),
 });
 
 // Request interceptor – attach JWT if present
