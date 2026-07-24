@@ -122,8 +122,14 @@ export default function PatientDashboard() {
 
               {/* Smart Medication Reminders & Adherence */}
               <div className="mt-6 space-y-6">
-                <MedicationReminderCard />
-                <TodaysMedicines />
+                {medicines.length > 0 && (
+                  <MedicationReminderCard
+                    medicineName={medicines[0].name}
+                    scheduledTime={medicines[0].time}
+                    priority={medicines[0].priority as any}
+                  />
+                )}
+                <TodaysMedicines medicines={medicines as any[]} />
                 <AIHealthScoreCard />
                 <div className="grid gap-6 md:grid-cols-2">
                   <AIInsightsCard />
@@ -143,15 +149,85 @@ export default function PatientDashboard() {
         <Route
           path="/medications"
           element={
-            <section className="mt-6">
-              <PageHeader title="Medications" subtitle="Manage your daily medicine prescriptions." />
-              <div className="grid gap-4 md:grid-cols-2">
-                {medicines.map((m) => (
-                  <MedicineCard key={m._id} medicine={m} />
-                ))}
-                {medicines.length === 0 && (
-                  <p className="text-slate-400">No active medications registered. Contact your clinician to add prescriptions.</p>
-                )}
+            <section className="mt-6 space-y-6">
+              <PageHeader title="Medications" subtitle="Prescribed medicines schedule and log alarms." />
+              
+              <div className="grid gap-6 md:grid-cols-2">
+                {/* Add Medicine form */}
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+                  <h3 className="text-lg font-semibold text-white mb-4">Add Medication Schedule</h3>
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const target = e.target as HTMLFormElement;
+                      const name = (target.elements.namedItem('medName') as HTMLInputElement).value;
+                      const dosage = (target.elements.namedItem('medDose') as HTMLInputElement).value;
+                      const frequency = (target.elements.namedItem('medFreq') as HTMLInputElement).value;
+                      const reminderTime = (target.elements.namedItem('medTime') as HTMLInputElement).value;
+                      const priority = (target.elements.namedItem('priority') as HTMLSelectElement).value;
+
+                      try {
+                        await api.post('/medicines', {
+                          name,
+                          dosage,
+                          frequency,
+                          reminderTime,
+                          priority,
+                          startDate: new Date()
+                        });
+                        alert('Medication added successfully!');
+                        fetchData();
+                      } catch (err: any) {
+                        alert(err.response?.data?.message || 'Error adding medication.');
+                      }
+                    }}
+                    className="space-y-4"
+                  >
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Medicine Name</label>
+                      <input name="medName" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="e.g. Lipitor, Metformin" />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Dosage</label>
+                        <input name="medDose" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="e.g. 10mg" />
+                      </div>
+                      <div>
+                        <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Time</label>
+                        <input name="medTime" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="e.g. 08:00, 21:00" />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Frequency</label>
+                      <input name="medFreq" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="e.g. Once daily, Twice daily" />
+                    </div>
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Priority</label>
+                      <select name="priority" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none bg-base-800">
+                        <option value="CRITICAL">Critical</option>
+                        <option value="HIGH">High</option>
+                        <option value="MEDIUM">Medium</option>
+                        <option value="LOW">Low</option>
+                      </select>
+                    </div>
+                    <button type="submit" className="w-full rounded-xl bg-neon py-3 text-xs font-bold text-black hover:bg-neon/90 transition-all">
+                      Add to Schedule
+                    </button>
+                  </form>
+                </div>
+
+                {/* Active Medicines List */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-white">Active Prescriptions</h3>
+                  <div className="grid gap-4 sm:grid-cols-1">
+                    {medicines.map((m) => (
+                      <MedicineCard key={m._id} medicine={m} />
+                    ))}
+                    {medicines.length === 0 && (
+                      <p className="text-slate-400">No active medications registered. Add one using the form.</p>
+                    )}
+                  </div>
+                </div>
               </div>
             </section>
           }

@@ -11,11 +11,12 @@ type Props = {
 };
 
 export default function MedicationReminderCard({
-  medicineName = 'Insulin Injection',
-  scheduledTime = '21:00',
-  priority = 'CRITICAL',
+  medicineName,
+  scheduledTime,
+  priority,
   onAction,
 }: Props) {
+  if (!medicineName) return null;
   const getBadgeTone = (p: string) => {
     if (p === 'CRITICAL') return 'danger' as const;
     if (p === 'HIGH') return 'warning' as const;
