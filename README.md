@@ -2,8 +2,8 @@
 
 ### **Predict. Prevent. Protect.**
 
-> An AI-powered medication adherence and health risk prediction platform that helps patients take medicines on time, predicts potential health risks, and alerts caregivers during emergencies.
-
+> An AI-powered medication adherence, health risk prediction, and decentralized medical record platform that helps patients take medicines on time, predicts potential health risks, and alerts caregivers during emergencies.
+>
 > 🚧 **Project Status:** Prototype (Not Deployed Yet)
 
 ---
@@ -12,26 +12,26 @@
 
 Millions of patients miss their medications every year, leading to poor health outcomes, emergency hospitalizations, and increased healthcare costs.
 
-Existing reminder apps only send notifications. If patients ignore them, no further action is taken.
+Existing reminder apps only send notifications. If patients ignore them, no further action is taken, and medical history is often stored in siloed, centralized databases.
 
-PulseGuard AI solves this by combining medication reminders, AI-powered risk prediction, caregiver monitoring, and emergency alerts into one platform.
-
----
-
-# ✨ Features
-
-- 💊 Smart Medicine Reminders
-- 🤖 AI-Based Health Risk Prediction
-- 📊 Medication Adherence Tracking
-- 🚨 Emergency SOS Alerts
-- 👨‍👩‍👧 Caregiver Dashboard
-- 🔐 Secure JWT Authentication
-- 📈 Health Dashboard
-- 📁 Secure Health Records
+PulseGuard AI solves this by combining medication reminders, AI-powered risk prediction, caregiver monitoring, emergency alerts, and **blockchain-secured decentralized health records** into one comprehensive platform.
 
 ---
 
-# 👥 Users
+## ✨ Features
+
+- 💊 **Smart Medicine Reminders**: Never miss a dose with automated alerts.
+- 🤖 **AI-Based Health Risk Prediction**: Predicts potential risks based on adherence and health data.
+- 📊 **Medication Adherence Tracking**: Monitor and improve medicine intake habits.
+- 🚨 **Emergency SOS Alerts**: Instantly notify caregivers and emergency contacts.
+- 👨‍👩‍👧 **Caregiver Dashboard**: Allows family members to monitor the patient's health in real-time.
+- 🔐 **Secure JWT Authentication**: Role-based access control for patients and caregivers.
+- 📈 **Health Dashboard**: A unified view of patient health metrics.
+- ⛓️ **Decentralized Health Records**: Immutable, transparent, and secure storage of medical records, risk scores, and prescriptions on the **Polygon Amoy** blockchain.
+
+---
+
+## 👥 Users
 
 ### 👤 Patient
 - Manage medicines
@@ -39,6 +39,7 @@ PulseGuard AI solves this by combining medication reminders, AI-powered risk pre
 - View health dashboard
 - Check AI risk score
 - Trigger SOS alerts
+- Own their decentralized medical history
 
 ### 👨‍👩‍👧 Caregiver
 - Monitor adherence
@@ -46,76 +47,70 @@ PulseGuard AI solves this by combining medication reminders, AI-powered risk pre
 - View patient health trends
 
 ### 👨‍⚕️ Doctor *(Future)*
-- Review reports
+- Review decentralized reports
 - Monitor adherence
-- Update prescriptions
+- Update prescriptions on-chain
 
 ---
 
-# 🤖 AI Workflow
+## 🤖 AI & Blockchain Workflow
 
 ```text
-Patient Data
-      │
-      ▼
-Medicine Schedule
-      │
-      ▼
-Adherence Tracking
-      │
-      ▼
-Risk Prediction Engine
-      │
-      ▼
-Risk Score
-      │
-      ▼
-Emergency Alert
+Patient Data ───► Medicine Schedule ───► Adherence Tracking
+                                              │
+                                              ▼
+Polygon Amoy ◄─── Smart Contract ◄─── Risk Prediction Engine
+(Decentralized    (Stores scores &            │
+ Storage)          history)                   ▼
+                                         Risk Score
+                                              │
+                                              ▼
+                                       Emergency Alert
 ```
 
 ---
 
-# 🏗️ System Architecture
+## 🏗️ System Architecture
 
 ```text
-React Frontend
+React Frontend (Vite, TailwindCSS)
       │
       ▼
-Express API
+Express API (Node.js)
       │
-      ▼
-Authentication
+      ├──► Authentication (JWT, bcrypt)
       │
-      ▼
-MongoDB
+      ├──► MongoDB (Off-chain user & schedule data)
       │
-      ▼
-AI Risk Engine
-      │
-      ▼
-Emergency Alerts
+      └──► Polygon Amoy (On-chain Medical Records via Solidity)
 ```
 
 ---
 
-# 🛠️ Tech Stack
+## 🛠️ Tech Stack
 
 ### Frontend
-- React
+- React 19
 - TypeScript
 - Vite
-- Tailwind CSS
+- Tailwind CSS 4
 - React Router
+- Ethers.js (Web3 Integration)
+- Lucide React (Icons)
 
 ### Backend
 - Node.js
 - Express.js
-- JWT
-- bcrypt
+- JWT & bcrypt
+- Twilio & Nodemailer (Alerts/Notifications)
+- Winston (Logging)
 
-### Database
-- MongoDB Atlas
-- Mongoose
+### Database & Storage
+- MongoDB Atlas & Mongoose
+
+### Smart Contracts (Web3)
+- Solidity (^0.8.20)
+- Polygon Amoy Testnet
 
 ### Security
 - Helmet
@@ -123,75 +118,90 @@ Emergency Alerts
 - CORS
 - Input Validation
 
-### AI
-- Rule-Based Risk Prediction Engine *(Prototype)*
-
 ---
 
-# 📁 Project Structure
+## 📁 Project Structure
 
 ```text
 PulseGuard-AI/
 │
-├── frontend/
+├── frontend/          # React + Vite frontend application
 │   ├── src/
-│   ├── components/
-│   ├── pages/
-│   └── dashboard/
+│   ├── public/
+│   └── package.json
 │
-├── backend/
+├── backend/           # Node.js + Express backend API
 │   ├── controllers/
 │   ├── models/
 │   ├── routes/
-│   ├── middleware/
-│   └── services/
+│   ├── services/
+│   └── package.json
+│
+├── contracts/         # Solidity smart contracts for decentralized records
+│   ├── PulseGuardHealthRecord.sol
+│   ├── abi/
+│   └── scripts/
 │
 └── README.md
 ```
 
 ---
 
-# 🚀 Getting Started
+## 🚀 Getting Started
 
-## Clone Repository
+### Prerequisites
+- Node.js (>= 18.0.0)
+- MongoDB URI
+- MetaMask (or other Web3 wallet) for Polygon Amoy
+- Twilio Account (for SMS alerts)
 
-```bash
-git clone https://github.com/your-username/PulseGuard-AI.git
-cd PulseGuard-AI
-```
-
-## Install Dependencies
-
-### Frontend
+### Clone Repository
 
 ```bash
-cd frontend
-npm install
-npm run dev
+git clone https://github.com/sapnajha757/pulseguard-ai.git
+cd pulseguard-ai
 ```
 
-### Backend
+### 1. Setup Backend
 
 ```bash
 cd backend
 npm install
-npm start
+
+# Create a .env file based on .env.example
+cp .env.example .env
+
+npm run dev
+```
+
+### 2. Setup Frontend
+
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
+
+### 3. Smart Contracts (Optional - if developing/deploying locally)
+
+```bash
+cd ../contracts
+# Deploy scripts are located in contracts/scripts
 ```
 
 ---
 
-# 🔒 Security
+## 🔒 Security
 
 - JWT Authentication
 - Password Hashing (bcrypt)
 - Protected APIs
-- Helmet
-- Rate Limiting
-- CORS
+- Helmet, Rate Limiting, CORS
+- Immutable Web3 Records
 
 ---
 
-# 🔮 Future Scope
+## 🔮 Future Scope
 
 - 🧠 ML-Based Risk Prediction
 - ⌚ Smartwatch Integration
@@ -204,9 +214,9 @@ npm start
 
 ---
 
-# 🎯 Vision
+## 🎯 Vision
 
-PulseGuard AI aims to transform medication management from simple reminders into intelligent, predictive healthcare assistance—helping patients stay healthy while enabling caregivers to intervene before emergencies occur.
+PulseGuard AI aims to transform medication management from simple reminders into intelligent, predictive healthcare assistance—helping patients stay healthy, securing their medical history on the blockchain, and enabling caregivers to intervene before emergencies occur.
 
 ---
 
