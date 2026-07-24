@@ -237,9 +237,20 @@ export default function PatientDashboard() {
         <Route
           path="/activity"
           element={
-            <section className="mt-6">
+            <section className="mt-6 space-y-6">
               <PageHeader title="Activity Logs" subtitle="View your daily adherence logs." />
               <MedicationTimeline />
+              
+              {/* Fallback empty view with CTA if no logs exist */}
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center">
+                <p className="text-slate-400 mb-4">No health activity or medication logs recorded yet.</p>
+                <a
+                  href="/dashboard/patient/medications"
+                  className="inline-flex items-center justify-center rounded-xl bg-neon px-5 py-2.5 text-xs font-bold text-black hover:bg-neon/90 transition-all"
+                >
+                  Start Your Activity (Add Medicine)
+                </a>
+              </div>
             </section>
           }
         />
