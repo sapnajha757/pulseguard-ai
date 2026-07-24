@@ -91,9 +91,11 @@ export default function PatientDashboard() {
         api.get<Risk>('/risk/latest'),
         api.get<Alert[]>('/alerts'),
       ]);
-      setMedicines(medRes.data || []);
+      const medsData = Array.isArray(medRes.data) ? medRes.data : ((medRes.data as any)?.medicines || (medRes.data as any)?.data || []);
+      const alertsData = Array.isArray(alertsRes.data) ? alertsRes.data : ((alertsRes.data as any)?.alerts || (alertsRes.data as any)?.data || []);
+      setMedicines(medsData);
       setRisk(riskRes.data || null);
-      setAlerts(alertsRes.data || []);
+      setAlerts(alertsData);
       setError(null);
     } catch (err: any) {
       console.error(err);
@@ -254,10 +256,10 @@ export default function PatientDashboard() {
                 <div className="space-y-4">
                   <h3 className="text-lg font-semibold text-white">Active Prescriptions</h3>
                   <div className="grid gap-4 sm:grid-cols-1">
-                    {medicines.map((m) => (
+                    {(Array.isArray(medicines) ? medicines : []).map((m) => (
                       <MedicineCard key={m._id} medicine={m} />
                     ))}
-                    {medicines.length === 0 && (
+                    {(!Array.isArray(medicines) || medicines.length === 0) && (
                       <p className="text-slate-400">No active medications registered. Add one using the form.</p>
                     )}
                   </div>
@@ -296,10 +298,10 @@ export default function PatientDashboard() {
             <section className="mt-6">
               <PageHeader title="Active Alerts" subtitle="Important health safety alerts and updates." />
               <div className="space-y-3">
-                {alerts.map((a) => (
+                {(Array.isArray(alerts) ? alerts : []).map((a) => (
                   <AlertCard key={a._id} alert={a} />
                 ))}
-                {alerts.length === 0 && (
+                {(!Array.isArray(alerts) || alerts.length === 0) && (
                   <p className="text-slate-400">No safety alerts generated. Vitals remain stable.</p>
                 )}
               </div>

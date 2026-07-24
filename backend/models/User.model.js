@@ -40,7 +40,13 @@ const userSchema = new mongoose.Schema(
     walletAddress: {
       type: String,
       trim: true,
-      match: [/^0x[a-fA-F0-9]{40}$/, 'Please provide a valid Ethereum address'],
+      validate: {
+        validator: function (v) {
+          if (!v) return true;
+          return /^0x[a-fA-F0-9]{40}$/.test(v);
+        },
+        message: 'Please provide a valid Ethereum address',
+      },
     },
     // Connections and Custom Medical Profiles
     doctorDetails: {
@@ -86,13 +92,14 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 // Instance method – generate JWT for the user
-  userSchema.methods.generateAuthToken = function () {
-    const payload = { id: this._id, role: this.role, walletAddress: this.walletAddress };
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN || '1d',
-    });
-    return token;
-  };
+userSchema.methods.generateAuthToken = function () {
+  const payload = { id: this._id, role: this.role, walletAddress: this.walletAddress };
+  const secret = process.env.JWT_SECRET || 'pulseguard_jwt_secret_key_2026_default';
+  const token = jwt.sign(payload, secret, {
+    expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+  });
+  return token;
+};
 
 // Instance method – generate password‑reset token
 userSchema.methods.createPasswordResetToken = function () {

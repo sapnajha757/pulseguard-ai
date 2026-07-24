@@ -7,7 +7,7 @@ const env = {
 
   mongoUri: process.env.MONGO_URI,
 
-  jwtSecret: process.env.JWT_SECRET,
+  jwtSecret: process.env.JWT_SECRET || "pulseguard_jwt_secret_key_2026_default",
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || "7d",
   jwtCookieExpiresIn: process.env.JWT_COOKIE_EXPIRES_IN || 7,
 

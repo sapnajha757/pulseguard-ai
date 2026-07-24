@@ -17,7 +17,7 @@ type Props = {
 };
 
 export default function TodaysMedicines({ medicines, onLogAction }: Props) {
-  if (!medicines || medicines.length === 0) {
+  if (!Array.isArray(medicines) || medicines.length === 0) {
     return null; // Hide medication dashboard schedule if none are set
   }
   const getBadgeStyle = (status: string) => {

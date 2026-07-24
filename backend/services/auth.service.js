@@ -44,7 +44,12 @@ const register = asyncHandler(async (data) => {
     throw err;
   }
 
-  const user = await User.create({ name, email, password, role, walletAddress }); // pre‑save hook hashes
+  const userData = { name, email, password, role };
+  if (walletAddress && typeof walletAddress === 'string' && walletAddress.trim()) {
+    userData.walletAddress = walletAddress.trim();
+  }
+
+  const user = await User.create(userData); // pre‑save hook hashes
   const token = user.generateAuthToken();
 
   const userObj = user.toObject();

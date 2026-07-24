@@ -59,7 +59,7 @@ export default function DoctorDashboard() {
     try {
       setLoading(true);
       const res = await api.get('/auth/me');
-      if (res.data?.user?.connectedPatients) {
+      if (Array.isArray(res.data?.user?.connectedPatients)) {
         // Query details for connected patients
         const details = await Promise.all(
           res.data.user.connectedPatients.map(async (pId: string) => {
@@ -172,10 +172,10 @@ export default function DoctorDashboard() {
                     <div>
                       <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Target Connected Patient</label>
                       <select name="patientId" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none bg-base-800">
-                        {user?.connectedPatients?.map((pId: string) => (
+                        {(Array.isArray(user?.connectedPatients) ? user.connectedPatients : []).map((pId: string) => (
                           <option key={pId} value={pId}>{pId}</option>
                         ))}
-                        {(!user?.connectedPatients || user.connectedPatients.length === 0) && (
+                        {(!Array.isArray(user?.connectedPatients) || user.connectedPatients.length === 0) && (
                           <option value="">No connected patients found</option>
                         )}
                       </select>

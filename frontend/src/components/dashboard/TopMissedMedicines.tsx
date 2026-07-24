@@ -18,6 +18,7 @@ export default function TopMissedMedicines({
     { name: 'Statin', missedCount: 4 },
   ],
 }: Props) {
+  const list = Array.isArray(medicines) ? medicines : [];
   return (
     <GlassCard glow="danger" scan className="p-6">
       <div className="flex items-center gap-2 mb-4">
@@ -25,7 +26,7 @@ export default function TopMissedMedicines({
         <h3 className="font-display text-base font-semibold text-white">Top Missed Medications</h3>
       </div>
       <div className="space-y-3.5">
-        {medicines.map((m, idx) => (
+        {list.map((m, idx) => (
           <div key={idx} className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] p-4">
             <div className="flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400">
