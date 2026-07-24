@@ -108,3 +108,4 @@
     at router.handle (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:175:3)
 [2026-07-24T13:38:07.879Z] INFO: PulseGuard AI backend running in development mode on port 5000
 [2026-07-24T13:45:30.788Z] INFO: PulseGuard AI backend running in development mode on port 5000
+[2026-07-24T13:45:42.075Z] INFO: PulseGuard AI backend running in development mode on port 5000
