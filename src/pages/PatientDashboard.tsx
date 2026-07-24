@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import api from '@/services/api';
 import { useAuth } from '@/context/AuthContext';
 import DashboardLayout from '@/components/layout/DashboardLayout';
@@ -103,51 +104,113 @@ export default function PatientDashboard() {
 
   return (
     <DashboardLayout role="patient">
-      <PageHeader
-        badge="Live monitoring active"
-        title={`Good morning, ${user?.name || 'Patient'}`}
-        subtitle="Here’s your health snapshot for today."
-        action={<NotificationBell />}
-      />
+      <Routes>
+        {/* Main patient dashboard overview */}
+        <Route
+          path="/"
+          element={
+            <>
+              <PageHeader
+                badge="Live monitoring active"
+                title={`Good morning, ${user?.name || 'Patient'}`}
+                subtitle="Here’s your health snapshot for today."
+                action={<NotificationBell />}
+              />
 
-      {/* Profile */}
-      <ProfileCard name={user?.name} email={user?.email} role={user?.role} />
+              {/* Profile */}
+              <ProfileCard name={user?.name} email={user?.email} role={user?.role} />
 
-      {/* Smart Medication Reminders & Adherence */}
-      <div className="mt-6 space-y-6">
-        <MedicationReminderCard />
-        <TodaysMedicines />
-        <AIHealthScoreCard />
-        <div className="grid gap-6 md:grid-cols-2">
-          <AIInsightsCard />
-          <FutureRiskCard />
-        </div>
-        <AdherenceCalendar />
-        <MedicationTimeline />
-      </div>
+              {/* Smart Medication Reminders & Adherence */}
+              <div className="mt-6 space-y-6">
+                <MedicationReminderCard />
+                <TodaysMedicines />
+                <AIHealthScoreCard />
+                <div className="grid gap-6 md:grid-cols-2">
+                  <AIInsightsCard />
+                  <FutureRiskCard />
+                </div>
+                <AdherenceCalendar />
+                <MedicationTimeline />
+              </div>
 
-      {/* Risk */}
-      {risk && <RiskCard risk={risk} />}
+              {/* Risk */}
+              {risk && <RiskCard risk={risk} />}
+            </>
+          }
+        />
 
-      {/* Medicines */}
-      <section className="mt-6">
-        <h2 className="mb-4 text-xl font-semibold text-white">Today's Medicines</h2>
-        <div className="grid gap-4 md:grid-cols-2">
-          {medicines.map((m) => (
-            <MedicineCard key={m._id} medicine={m} />
-          ))}
-        </div>
-      </section>
+        {/* Medications view */}
+        <Route
+          path="/medications"
+          element={
+            <section className="mt-6">
+              <PageHeader title="Medications" subtitle="Manage your daily medicine prescriptions." />
+              <div className="grid gap-4 md:grid-cols-2">
+                {medicines.map((m) => (
+                  <MedicineCard key={m._id} medicine={m} />
+                ))}
+                {medicines.length === 0 && (
+                  <p className="text-slate-400">No active medications registered. Contact your clinician to add prescriptions.</p>
+                )}
+              </div>
+            </section>
+          }
+        />
 
-      {/* Alerts */}
-      <section className="mt-6">
-        <h2 className="mb-4 text-xl font-semibold text-white">Active Alerts</h2>
-        <div className="space-y-3">
-          {alerts.map((a) => (
-            <AlertCard key={a._id} alert={a} />
-          ))}
-        </div>
-      </section>
+        {/* Activity logs view */}
+        <Route
+          path="/activity"
+          element={
+            <section className="mt-6">
+              <PageHeader title="Activity Logs" subtitle="View your daily adherence logs." />
+              <MedicationTimeline />
+            </section>
+          }
+        />
+
+        {/* Alerts view */}
+        <Route
+          path="/alerts"
+          element={
+            <section className="mt-6">
+              <PageHeader title="Active Alerts" subtitle="Important health safety alerts and updates." />
+              <div className="space-y-3">
+                {alerts.map((a) => (
+                  <AlertCard key={a._id} alert={a} />
+                ))}
+                {alerts.length === 0 && (
+                  <p className="text-slate-400">No safety alerts generated. Vitals remain stable.</p>
+                )}
+              </div>
+            </section>
+          }
+        />
+
+        {/* Family Access view */}
+        <Route
+          path="/family"
+          element={
+            <section className="mt-6">
+              <PageHeader title="Family Circle Access" subtitle="Manage sharing parameters for family members." />
+              <p className="text-slate-400">No caregivers connected yet. Add care partners to share alerts.</p>
+            </section>
+          }
+        />
+
+        {/* Settings view */}
+        <Route
+          path="/settings"
+          element={
+            <section className="mt-6">
+              <PageHeader title="Profile Settings" subtitle="Edit contact numbers and reminder alarms." />
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+                <p className="text-sm text-slate-300">Name: <strong className="text-white">{user?.name}</strong></p>
+                <p className="text-sm text-slate-300 mt-2">Email: <strong className="text-white">{user?.email}</strong></p>
+              </div>
+            </section>
+          }
+        />
+      </Routes>
     </DashboardLayout>
   );
 }
