@@ -280,10 +280,11 @@ export default function PatientDashboard() {
                       const name = (target.elements.namedItem('familyName') as HTMLInputElement).value;
                       const relation = (target.elements.namedItem('relation') as HTMLInputElement).value;
                       const email = (target.elements.namedItem('familyEmail') as HTMLInputElement).value;
+                      const phone = (target.elements.namedItem('familyPhone') as HTMLInputElement).value;
 
                       try {
                         const res = await api.put('/auth/profile/update', {
-                          familyDetails: { name, relation, email, connected: false }
+                          familyDetails: { name, relation, email, phone, connected: false }
                         });
                         alert('Caregiver info saved. They can now link to your profile using ' + email);
                         window.location.reload();
@@ -304,6 +305,10 @@ export default function PatientDashboard() {
                     <div>
                       <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Email Address</label>
                       <input name="familyEmail" type="email" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="caregiver@email.com" />
+                    </div>
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Phone Number</label>
+                      <input name="familyPhone" type="tel" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="+1234567890" />
                     </div>
                     <button type="submit" className="w-full rounded-xl bg-neon py-3 text-xs font-bold text-black hover:bg-neon/90 transition-all">
                       Connect Caregiver
@@ -349,12 +354,12 @@ export default function PatientDashboard() {
                         e.preventDefault();
                         const target = e.target as HTMLFormElement;
                         const name = (target.elements.namedItem('docName') as HTMLInputElement).value;
-                        const specialty = (target.elements.namedItem('docSpec') as HTMLInputElement).value;
                         const email = (target.elements.namedItem('docEmail') as HTMLInputElement).value;
+                        const phone = (target.elements.namedItem('docPhone') as HTMLInputElement).value;
 
                         try {
                           await api.put('/auth/profile/update', {
-                            doctorDetails: { name, specialty, email, connected: false }
+                            doctorDetails: { name, specialty, email, phone, connected: false }
                           });
                           alert('Clinician info saved. They can now link to your profile using ' + email);
                           window.location.reload();
@@ -375,6 +380,10 @@ export default function PatientDashboard() {
                       <div>
                         <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Doctor Email</label>
                         <input name="docEmail" type="email" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="doctor@hospital.com" />
+                      </div>
+                      <div>
+                        <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Doctor Phone</label>
+                        <input name="docPhone" type="tel" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none" placeholder="+1234567890" />
                       </div>
                       <button type="submit" className="w-full rounded-xl bg-neon py-3 text-xs font-bold text-black hover:bg-neon/90 transition-all">
                         Link Doctor
