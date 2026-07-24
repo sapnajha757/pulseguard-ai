@@ -1,9 +1,11 @@
 // routes/risk.routes.js
 const express = require('express');
 const riskController = require('../controllers/risk.controller');
-// const { protect } = require('../middleware/auth.middleware');
+const { protect } = require('../middleware/auth.middleware');
 
 const router = express.Router();
+
+router.use(protect);
 
 router.post('/predict', riskController.predictRisk);
 router.get('/history', riskController.getRiskHistory);

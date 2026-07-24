@@ -1,9 +1,11 @@
 // routes/alert.routes.js
 const express = require('express');
 const alertController = require('../controllers/alert.controller');
-// const { protect } = require('../middleware/auth.middleware');
+const { protect } = require('../middleware/auth.middleware');
 
 const router = express.Router();
+
+router.use(protect);
 
 router
   .route('/')
