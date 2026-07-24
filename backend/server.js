@@ -25,21 +25,21 @@ app.use(
     origin: function (origin, callback) {
       // Allow requests with no origin (like mobile apps, curl)
       if (!origin) return callback(null, true);
-      // In development, allow any localhost origin
-      if (env.nodeEnv === 'development' && /^https?:\/\/localhost(:\d+)?$/.test(origin)) {
+      // Allow any localhost origin
+      if (/^https?:\/\/localhost(:\d+)?$/.test(origin)) {
         return callback(null, true);
       }
-      // Allow any Vercel preview/production URL for this project
-      if (/^https:\/\/pulseguard-ai.*\.vercel\.app$/.test(origin)) {
+      // Allow any Vercel domain
+      if (/\.vercel\.app$/.test(origin)) {
         return callback(null, true);
       }
-      // Allow any Netlify preview/production URL for this project
-      if (/^https:\/\/pulseguard-ai.*\.netlify\.app$/.test(origin)) {
+      // Allow any Netlify domain
+      if (/\.netlify\.app$/.test(origin)) {
         return callback(null, true);
       }
       // Check against CLIENT_URL (supports comma-separated list)
       const allowedOrigins = (env.clientUrl || '').split(',').map(s => s.trim()).filter(Boolean);
-      if (allowedOrigins.includes(origin)) {
+      if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
         return callback(null, true);
       }
       callback(new Error('Not allowed by CORS'));
