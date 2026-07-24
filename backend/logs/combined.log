@@ -1397,3 +1397,4 @@
     at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
     at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
     at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+[2026-07-24T17:11:32.574Z] ERROR: Uncaught Exception: listen EADDRINUSE: address already in use :::5000
