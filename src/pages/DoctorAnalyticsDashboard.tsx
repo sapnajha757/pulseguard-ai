@@ -9,6 +9,7 @@ import PatientRiskCard from '@/components/dashboard/PatientRiskCard';
 import PatientLeaderboard from '@/components/dashboard/PatientLeaderboard';
 import TopMissedMedicines from '@/components/dashboard/TopMissedMedicines';
 import api from '@/services/api';
+import { useAuth } from '@/context/AuthContext';
 
 type Patient = {
   _id: string;
@@ -99,11 +100,13 @@ export default function DoctorAnalyticsDashboard() {
     setFilteredPatients(result);
   }, [search, filter, patients]);
 
+  const { user } = useAuth();
+
   return (
     <DashboardLayout role="doctor">
       <PageHeader
         badge="Clinician Analytics Console"
-        title="Dr. Aanya Sharma"
+        title={user?.name ? `Dr. ${user.name}` : 'Medical Clinician'}
         subtitle="AI clinical decision engine and priority compliance insights."
         action={<NotificationBell />}
       />

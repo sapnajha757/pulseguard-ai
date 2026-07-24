@@ -16,6 +16,7 @@ import Panel from '@/components/dashboard/Panel';
 import StatCard from '@/components/dashboard/StatCard';
 import Badge from '@/components/ui/Badge';
 import NeonButton from '@/components/ui/NeonButton';
+import { useAuth } from '@/context/AuthContext';
 import AIHealthScoreCard from '@/components/dashboard/AIHealthScoreCard';
 import AIInsightsCard from '@/components/dashboard/AIInsightsCard';
 import FutureRiskCard from '@/components/dashboard/FutureRiskCard';
@@ -46,11 +47,13 @@ const trendColor = {
 };
 
 export default function DoctorDashboard() {
+  const { user } = useAuth();
+
   return (
     <DashboardLayout role="doctor">
       <PageHeader
         badge="Clinician console"
-        title="Dr. Aanya Sharma"
+        title={user?.name ? `Dr. ${user.name}` : 'Medical Clinician'}
         subtitle="You have 2 critical alerts and 4 patients requiring attention today."
         action={<NotificationBell />}
       />
