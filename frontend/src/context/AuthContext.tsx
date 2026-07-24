@@ -1,13 +1,12 @@
 // src/context/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import {
-  login as loginApi,
-  register as registerApi,
-  logout as logoutApi,
-  type AuthUser,
-} from '../services/auth.service';
+import { login as loginApi, register as registerApi, logout as logoutApi } from '../services/auth.service';
 
-interface User extends AuthUser {
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  role?: string;
   isDemo?: boolean;
   connectedPatients?: string[];
   doctorDetails?: any;
@@ -21,7 +20,7 @@ interface AuthContextProps {
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string, role: string) => Promise<void>;
-  logout: () => Promise<void>;
+  logout: () => void;
   startDemoMode: (role: 'patient' | 'doctor' | 'family') => void;
 }
 
@@ -95,8 +94,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(mockUser);
   };
 
-  const logout = async () => {
-    await logoutApi();
+  const logout = () => {
+    logoutApi();
     localStorage.removeItem('pulseguard_token');
     localStorage.removeItem('pulseguard_user');
     setToken(null);
