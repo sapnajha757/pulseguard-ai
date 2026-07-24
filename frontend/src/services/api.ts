@@ -3,9 +3,7 @@ import axios from 'axios';
 
 // Base URL for all API calls
 const api = axios.create({
-  baseURL:
-    import.meta.env.VITE_API_URL ||
-    (import.meta.env.DEV ? 'http://localhost:5000/api/v1' : '/api/v1'),
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1',
 });
 
 // Request interceptor – attach JWT if present
