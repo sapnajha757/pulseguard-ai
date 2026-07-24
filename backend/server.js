@@ -29,8 +29,13 @@ app.use(
       if (env.nodeEnv === 'development' && /^https?:\/\/localhost(:\d+)?$/.test(origin)) {
         return callback(null, true);
       }
-      // In production, check against CLIENT_URL
-      if (origin === env.clientUrl) {
+      // Allow any Vercel preview/production URL for this project
+      if (/^https:\/\/pulseguard-ai.*\.vercel\.app$/.test(origin)) {
+        return callback(null, true);
+      }
+      // Check against CLIENT_URL (supports comma-separated list)
+      const allowedOrigins = (env.clientUrl || '').split(',').map(s => s.trim()).filter(Boolean);
+      if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
       callback(new Error('Not allowed by CORS'));
