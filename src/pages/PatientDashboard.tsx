@@ -203,11 +203,11 @@ export default function PatientDashboard() {
                     </div>
                     <div>
                       <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Priority</label>
-                      <select name="priority" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none bg-base-800">
-                        <option value="CRITICAL">Critical</option>
-                        <option value="HIGH">High</option>
-                        <option value="MEDIUM">Medium</option>
-                        <option value="LOW">Low</option>
+                      <select name="priority" required className="w-full rounded-xl border border-white/10 bg-base-900 p-3 text-sm text-white focus:border-neon focus:outline-none">
+                        <option value="CRITICAL" className="bg-base-900 text-white">Critical</option>
+                        <option value="HIGH" className="bg-base-900 text-white">High</option>
+                        <option value="MEDIUM" className="bg-base-900 text-white">Medium</option>
+                        <option value="LOW" className="bg-base-900 text-white">Low</option>
                       </select>
                     </div>
                     <button type="submit" className="w-full rounded-xl bg-neon py-3 text-xs font-bold text-black hover:bg-neon/90 transition-all">
@@ -421,10 +421,10 @@ export default function PatientDashboard() {
                       </div>
                       <div>
                         <label className="block text-xs uppercase tracking-wider text-slate-400 mb-1">Severity</label>
-                        <select name="severity" required className="w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white focus:border-neon focus:outline-none bg-base-800">
-                          <option value="Mild">Mild</option>
-                          <option value="Moderate">Moderate</option>
-                          <option value="Severe">Severe</option>
+                        <select name="severity" required className="w-full rounded-xl border border-white/10 bg-base-900 p-3 text-sm text-white focus:border-neon focus:outline-none">
+                          <option value="Mild" className="bg-base-900 text-white">Mild</option>
+                          <option value="Moderate" className="bg-base-900 text-white">Moderate</option>
+                          <option value="Severe" className="bg-base-900 text-white">Severe</option>
                         </select>
                       </div>
                       <div>
