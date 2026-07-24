@@ -29,7 +29,7 @@ const sendEmail = async ({ to, subject, html }) => {
    Register a new user
    ------------------------------------------------------------------ */
 const register = asyncHandler(async (data) => {
-  const { name, email, password, walletAddress } = data;
+  const { name, email, password, role, walletAddress } = data;
 
   if (!name || !email || !password) {
     const err = new Error('Name, email and password are required');
@@ -44,7 +44,7 @@ const register = asyncHandler(async (data) => {
     throw err;
   }
 
-  const user = await User.create({ name, email, password, walletAddress }); // pre‑save hook hashes
+  const user = await User.create({ name, email, password, role, walletAddress }); // pre‑save hook hashes
   const token = user.generateAuthToken();
 
   const userObj = user.toObject();
