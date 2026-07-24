@@ -25,6 +25,7 @@ const navByRole: Record<string, NavItem[]> = {
   patient: [
     { to: '/dashboard/patient', label: 'Overview', icon: LayoutDashboard },
     { to: '/dashboard/patient/medications', label: 'Medications', icon: Pill },
+    { to: '/dashboard/patient/clinical-setup', label: 'Doctor & Disease Setup', icon: HeartPulse },
     { to: '/dashboard/patient/activity', label: 'Activity', icon: Activity },
     { to: '/dashboard/patient/alerts', label: 'Alerts', icon: Bell },
     { to: '/dashboard/patient/family', label: 'Family Access', icon: Users },

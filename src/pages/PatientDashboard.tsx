@@ -256,12 +256,12 @@ export default function PatientDashboard() {
           }
         />
 
-        {/* Settings view */}
+        {/* Doctor & Disease Setup view */}
         <Route
-          path="/settings"
+          path="/clinical-setup"
           element={
             <section className="mt-6">
-              <PageHeader title="Profile & Clinical Setup" subtitle="Edit details and connect clinicians." />
+              <PageHeader title="Doctor & Disease Setup" subtitle="Edit details and connect clinicians." />
               
               <div className="grid gap-6 md:grid-cols-2">
                 {/* Disease Info and Doctor Form */}
@@ -352,6 +352,20 @@ export default function PatientDashboard() {
                     </form>
                   </div>
                 </div>
+              </div>
+            </section>
+          }
+        />
+
+        {/* Settings view */}
+        <Route
+          path="/settings"
+          element={
+            <section className="mt-6">
+              <PageHeader title="Profile Settings" subtitle="Your core account properties." />
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+                <p className="text-sm text-slate-300">Name: <strong className="text-white">{user?.name}</strong></p>
+                <p className="text-sm text-slate-300 mt-2">Email: <strong className="text-white">{user?.email}</strong></p>
               </div>
             </section>
           }
