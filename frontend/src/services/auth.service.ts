@@ -11,9 +11,15 @@ interface LoginPayload {
   email: string;
   password: string;
 }
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  role?: string;
+}
 interface AuthResponse {
   token: string;
-  user: Record<string, any>;
+  user: AuthUser;
 }
 
 export const register = async (data: RegisterPayload): Promise<AuthResponse> => {
@@ -26,7 +32,12 @@ export const login = async (data: LoginPayload): Promise<AuthResponse> => {
   return response.data;
 };
 
-export const logout = () => {
+export const logout = async () => {
+  try {
+    await api.post('/auth/logout');
+  } catch {
+    // Local credentials are cleared even if the session is already unavailable.
+  }
   localStorage.removeItem('pulseguard_token');
   localStorage.removeItem('pulseguard_user');
 };
