@@ -171,3 +171,12 @@ const resetPassword = asyncHandler(async (token, newPassword) => {
 
   return { message: 'Password has been reset successfully' };
 });
+
+module.exports = {
+  register,
+  login,
+  logout,
+  getMe,
+  forgotPassword,
+  resetPassword,
+};

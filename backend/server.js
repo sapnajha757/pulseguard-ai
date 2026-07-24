@@ -1,5 +1,6 @@
 // server.js
 // Application entrypoint: middleware wiring, DB connection, and startup.
+
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -16,63 +17,99 @@ const { errorHandler, notFound } = require('./middleware/error.middleware');
 
 const app = express();
 
-// --- Security & core middleware ---
+// ---------------- Security Middleware ----------------
 app.use(helmet());
+
 app.use(
   cors({
     origin: env.clientUrl,
     credentials: true,
   })
 );
+
 app.use(compression());
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// --- Logging ---
+// ---------------- Logging ----------------
 app.use(morgan(env.nodeEnv === 'production' ? 'combined' : 'dev'));
 
-// --- Rate limiting ---
+// ---------------- Rate Limiter ----------------
 const limiter = rateLimit({
   windowMs: env.rateLimitWindowMs,
   max: env.rateLimitMax,
   standardHeaders: true,
   legacyHeaders: false,
 });
+
 app.use('/api', limiter);
 
-// --- Health check ---
+// ---------------- Health Check ----------------
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'ok', service: 'pulseguard-ai-backend' });
+  res.status(200).json({
+    status: 'ok',
+    service: 'pulseguard-ai-backend',
+  });
 });
 
-// --- API routes ---
+// ---------------- API Routes ----------------
 app.use('/api/v1', apiRoutes);
 
-// --- 404 + error handling ---
+// ---------------- Error Middleware ----------------
 app.use(notFound);
 app.use(errorHandler);
 
-// --- Startup ---
+// ---------------- Startup ----------------
 const startServer = async () => {
-  await connectDB();
+  try {
+    console.log("\n========== PulseGuard Startup ==========");
+    console.log("STEP 1 - Starting server...");
 
-  const { initReminderEngine } = require('./services/reminder.service');
-  initReminderEngine();
+    console.log("STEP 2 - Connecting to MongoDB...");
+    await connectDB();
+    console.log("✅ STEP 2 Completed - MongoDB Connected");
 
-  const server = app.listen(env.port, () => {
-    logger.info(`PulseGuard AI backend running in ${env.nodeEnv} mode on port ${env.port}`);
-  });
+    console.log("STEP 3 - Loading Reminder Engine...");
+    const { initReminderEngine } = require('./services/reminder.service');
+    console.log("✅ Reminder module loaded");
 
-  process.on('unhandledRejection', (err) => {
-    logger.error(`Unhandled Rejection: ${err.message}`);
-    server.close(() => process.exit(1));
-  });
+    console.log("STEP 4 - Initializing Reminder Engine...");
+    initReminderEngine();
+    console.log("✅ Reminder Engine Initialized");
 
-  process.on('SIGTERM', () => {
-    logger.info('SIGTERM received. Shutting down gracefully.');
-    server.close(() => process.exit(0));
-  });
+    console.log(`STEP 5 - Starting Express on port ${env.port}...`);
+
+    const server = app.listen(env.port, () => {
+      console.log("✅ STEP 6 - Express Server Started");
+      console.log(`🌍 http://localhost:${env.port}`);
+      logger.info(
+        `PulseGuard AI backend running in ${env.nodeEnv} mode on port ${env.port}`
+      );
+    });
+
+    process.on('unhandledRejection', (err) => {
+      console.error("❌ Unhandled Rejection:", err);
+      logger.error(`Unhandled Rejection: ${err.message}`);
+      server.close(() => process.exit(1));
+    });
+
+    process.on('uncaughtException', (err) => {
+      console.error("❌ Uncaught Exception:", err);
+      logger.error(`Uncaught Exception: ${err.message}`);
+      process.exit(1);
+    });
+
+    process.on('SIGTERM', () => {
+      console.log("⚠️ SIGTERM received");
+      logger.info('SIGTERM received. Shutting down gracefully.');
+      server.close(() => process.exit(0));
+    });
+
+  } catch (err) {
+    console.error("\n❌ SERVER FAILED TO START");
+    console.error(err);
+  }
 };
 
 startServer();

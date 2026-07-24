@@ -22,3 +22,81 @@
 [2026-07-24T12:20:43.092Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
 [2026-07-24T12:32:00.000Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
 [2026-07-24T12:31:59.999Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+[2026-07-24T12:54:55.655Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+[2026-07-24T13:37:07.739Z] ERROR: TypeError: authService.register is not a function
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:6:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:175:3)
+[2026-07-24T13:37:09.247Z] ERROR: TypeError: authService.register is not a function
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:6:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:175:3)
+[2026-07-24T13:37:10.045Z] ERROR: TypeError: authService.register is not a function
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:6:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:175:3)
+[2026-07-24T13:37:10.278Z] ERROR: TypeError: authService.register is not a function
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:6:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:175:3)
+[2026-07-24T13:37:10.581Z] ERROR: TypeError: authService.register is not a function
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:6:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:175:3)
+[2026-07-24T13:37:11.004Z] ERROR: TypeError: authService.register is not a function
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:6:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:175:3)
+[2026-07-24T13:37:11.372Z] ERROR: TypeError: authService.register is not a function
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:6:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:175:3)
