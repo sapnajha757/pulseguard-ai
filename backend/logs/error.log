@@ -1,1 +1,11 @@
 [2026-07-24T07:49:17.924Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+[2026-07-24T09:56:29.659Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+[2026-07-24T09:56:29.675Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+[2026-07-24T10:03:31.717Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+[2026-07-24T10:03:31.730Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+[2026-07-24T10:04:24.700Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+[2026-07-24T10:04:24.702Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+[2026-07-24T10:04:57.038Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+[2026-07-24T10:04:57.038Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+[2026-07-24T10:05:28.460Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+[2026-07-24T10:05:28.456Z] ERROR: MongoDB initial connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017

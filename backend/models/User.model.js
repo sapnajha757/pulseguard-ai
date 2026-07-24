@@ -1,7 +1,9 @@
-// models/User.model.js
-// Schema definition only — hashing hooks, methods, and validators are
-// wired here but implemented in services/auth.service.js.
+// backend/models/User.model.js
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+require('dotenv').config();
 
 const userSchema = new mongoose.Schema(
   {
@@ -16,52 +18,57 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
       trim: true,
+      match: [
+        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+        'Please fill a valid email address',
+      ],
     },
     password: {
       type: String,
       required: [true, 'Password is required'],
-      minlength: 8,
+      minlength: 6,
       select: false,
     },
     role: {
       type: String,
-      enum: ['patient', 'caregiver', 'admin'],
-      default: 'patient',
+      enum: ['user', 'admin'],
+      default: 'user',
     },
-    phone: {
-      type: String,
-      trim: true,
-    },
-    emergencyContacts: [
-      {
-        name: { type: String, trim: true },
-        phone: { type: String, trim: true },
-        email: { type: String, trim: true },
-        relation: { type: String, trim: true },
-      },
-    ],
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
-    lastLogin: {
-      type: Date,
-    },
-    passwordChangedAt: {
-      type: Date,
-    },
-    passwordResetToken: {
-      type: String,
-    },
-    passwordResetExpires: {
-      type: Date,
-    },
+    lastLogin: Date,
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
   },
   { timestamps: true }
 );
 
-// TODO(services/auth.service.js): pre-save password hashing hook
-// TODO(services/auth.service.js): comparePassword instance method
-// TODO(services/auth.service.js): generateAuthToken instance method
+// Pre‑save hook – hash password if it was modified
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
+
+// Instance method – compare plain password with hash
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
+
+// Instance method – generate JWT for the user
+userSchema.methods.generateAuthToken = function () {
+  const payload = { id: this._id, role: this.role };
+  const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN || '1d',
+  });
+  return token;
+};
+
+// Instance method – generate password‑reset token
+userSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000; // 10 minutes
+  return resetToken;
+};
 
 module.exports = mongoose.model('User', userSchema);

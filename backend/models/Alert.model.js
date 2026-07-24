@@ -1,69 +1,31 @@
-// models/Alert.model.js
-// Schema definition only — dispatch logic lives in
-// services/alert.service.js.
+// backend/models/Alert.model.js
 const mongoose = require('mongoose');
 
-const alertSchema = new mongoose.Schema(
-  {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-      index: true,
-    },
-    type: {
-      type: String,
-      enum: ['medicine_missed', 'risk_threshold', 'manual', 'vital_abnormal'],
-      required: true,
-    },
-    severity: {
-      type: String,
-      enum: ['info', 'warning', 'critical'],
-      default: 'warning',
-    },
-    message: {
-      type: String,
-      required: true,
-    },
-    relatedRiskAssessment: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'RiskAssessment',
-    },
-    relatedMedicine: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Medicine',
-    },
-    channels: [
-      {
-        type: String,
-        enum: ['sms', 'email', 'push', 'call'],
-      },
-    ],
-    recipients: [
-      {
-        name: String,
-        contact: String,
-        channel: { type: String, enum: ['sms', 'email', 'push', 'call'] },
-        deliveryStatus: {
-          type: String,
-          enum: ['pending', 'sent', 'failed', 'delivered'],
-          default: 'pending',
-        },
-      },
-    ],
-    status: {
-      type: String,
-      enum: ['open', 'acknowledged', 'resolved'],
-      default: 'open',
-    },
-    acknowledgedAt: {
-      type: Date,
-    },
-    resolvedAt: {
-      type: Date,
-    },
+const alertSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  type: {
+    type: String,
+    enum: ['MEDICATION', 'HEALTH_RISK', 'EMERGENCY'],
+    required: true,
   },
-  { timestamps: true }
-);
+  severity: {
+    type: String,
+    enum: ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'],
+    required: true,
+  },
+  message: { type: String, required: true },
+  status: {
+    type: String,
+    enum: ['ACTIVE', 'RESOLVED'],
+    default: 'ACTIVE',
+  },
+  notifiedTo: [
+    {
+      name: { type: String },
+      phone: { type: String },
+      relation: { type: String },
+    },
+  ],
+}, { timestamps: true });
 
 module.exports = mongoose.model('Alert', alertSchema);

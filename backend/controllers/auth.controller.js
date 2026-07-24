@@ -1,54 +1,48 @@
-// controllers/auth.controller.js
-// Route handlers only — business logic lives in services/auth.service.js.
 const asyncHandler = require('express-async-handler');
-// const authService = require('../services/auth.service');
+const authService = require('../services/auth.service');
 
-// @desc    Register a new user
-// @route   POST /api/v1/auth/register
-// @access  Public
+// Register
 const register = asyncHandler(async (req, res) => {
-  // TODO: delegate to authService.register(req.body)
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  const result = await authService.register(req.body);
+  res.status(201).json(result);
 });
 
-// @desc    Log in a user
-// @route   POST /api/v1/auth/login
-// @access  Public
+// Login
 const login = asyncHandler(async (req, res) => {
-  // TODO: delegate to authService.login(req.body)
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  const result = await authService.login(req.body);
+  res.status(200).json(result);
 });
 
-// @desc    Log out current user
-// @route   POST /api/v1/auth/logout
-// @access  Private
+// Logout
 const logout = asyncHandler(async (req, res) => {
-  // TODO: clear auth cookie / invalidate token
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  res.status(501).json({
+    success: false,
+    message: 'Coming Soon',
+  });
 });
 
-// @desc    Get currently authenticated user
-// @route   GET /api/v1/auth/me
-// @access  Private
+// Current User
 const getMe = asyncHandler(async (req, res) => {
-  // TODO: return req.user profile
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  res.status(501).json({
+    success: false,
+    message: 'Coming Soon',
+  });
 });
 
-// @desc    Request password reset
-// @route   POST /api/v1/auth/forgot-password
-// @access  Public
+// Forgot Password
 const forgotPassword = asyncHandler(async (req, res) => {
-  // TODO: delegate to authService.forgotPassword(req.body.email)
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  res.status(501).json({
+    success: false,
+    message: 'Coming Soon',
+  });
 });
 
-// @desc    Reset password with token
-// @route   PATCH /api/v1/auth/reset-password/:token
-// @access  Public
+// Reset Password
 const resetPassword = asyncHandler(async (req, res) => {
-  // TODO: delegate to authService.resetPassword(req.params.token, req.body.password)
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  res.status(501).json({
+    success: false,
+    message: 'Coming Soon',
+  });
 });
 
 module.exports = {

@@ -1,9 +1,12 @@
 // routes/medicine.routes.js
 const express = require('express');
 const medicineController = require('../controllers/medicine.controller');
-// const { protect } = require('../middleware/auth.middleware');
+const { protect } = require('../middleware/auth.middleware');
 
 const router = express.Router();
+
+// Protect all medicine routes
+router.use(protect);
 
 router
   .route('/')

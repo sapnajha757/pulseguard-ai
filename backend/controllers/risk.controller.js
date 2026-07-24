@@ -1,22 +1,22 @@
 // controllers/risk.controller.js
 // Route handlers only — prediction logic lives in services/risk.service.js.
 const asyncHandler = require('express-async-handler');
-// const riskService = require('../services/risk.service');
+const riskService = require('../services/risk.service');
 
 // @desc    Run a new risk prediction for the current user
 // @route   POST /api/v1/risk/predict
 // @access  Private
 const predictRisk = asyncHandler(async (req, res) => {
-  // TODO: delegate to riskService.predict(req.user.id, req.body)
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  const result = await riskService.predict(req.user.id, req.body);
+  res.status(200).json({ success: true, data: result });
 });
 
 // @desc    Get risk assessment history for current user
 // @route   GET /api/v1/risk/history
 // @access  Private
 const getRiskHistory = asyncHandler(async (req, res) => {
-  // TODO: delegate to riskService.findHistoryForUser(req.user.id, req.query)
-  res.status(501).json({ success: false, message: 'Not implemented' });
+  const history = await riskService.findHistoryForUser(req.user.id, req.query);
+  res.status(200).json({ success: true, data: history });
 });
 
 // @desc    Get a single risk assessment by id
