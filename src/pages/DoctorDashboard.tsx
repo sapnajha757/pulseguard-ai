@@ -16,6 +16,9 @@ import Panel from '@/components/dashboard/Panel';
 import StatCard from '@/components/dashboard/StatCard';
 import Badge from '@/components/ui/Badge';
 import NeonButton from '@/components/ui/NeonButton';
+import AIHealthScoreCard from '@/components/dashboard/AIHealthScoreCard';
+import AIInsightsCard from '@/components/dashboard/AIInsightsCard';
+import FutureRiskCard from '@/components/dashboard/FutureRiskCard';
 import { highRiskPatients, doctorAlerts, recentReports } from '@/data/mockData';
 
 const levelStyle = {
@@ -58,6 +61,15 @@ export default function DoctorDashboard() {
         <StatCard icon={AlertTriangle} label="Critical Alerts" value={2} trend="up" trendLabel="2 new" accent="danger" />
         <StatCard icon={HeartPulse} label="Avg Risk Score" value={34} unit="/100" trend="down" trendLabel="-6%" accent="accent" />
         <StatCard icon={FileText} label="Pending Reports" value={7} trend="stable" trendLabel="Unchanged" accent="warning" />
+      </div>
+
+      {/* AI Intelligence Console */}
+      <div className="mt-6 space-y-6">
+        <AIHealthScoreCard />
+        <div className="grid gap-6 md:grid-cols-2">
+          <AIInsightsCard />
+          <FutureRiskCard />
+        </div>
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">

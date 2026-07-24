@@ -18,6 +18,9 @@ import Panel from '@/components/dashboard/Panel';
 import StatCard from '@/components/dashboard/StatCard';
 import Badge from '@/components/ui/Badge';
 import GlassCard from '@/components/ui/GlassCard';
+import AIHealthScoreCard from '@/components/dashboard/AIHealthScoreCard';
+import AIInsightsCard from '@/components/dashboard/AIInsightsCard';
+import FutureRiskCard from '@/components/dashboard/FutureRiskCard';
 import { familyAlerts, medicationHistory, emergencyContacts } from '@/data/mockData';
 
 const levelStyle = {
@@ -74,6 +77,15 @@ export default function FamilyDashboard() {
           </div>
         </div>
       </GlassCard>
+
+      {/* AI Health Intelligence Overview */}
+      <div className="mb-6 space-y-6">
+        <AIHealthScoreCard />
+        <div className="grid gap-6 md:grid-cols-2">
+          <AIInsightsCard />
+          <FutureRiskCard />
+        </div>
+      </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Left — alerts + med history */}

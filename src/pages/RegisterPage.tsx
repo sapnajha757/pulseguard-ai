@@ -4,6 +4,7 @@ import { ArrowRight, User, Stethoscope, Users } from 'lucide-react';
 import AuthLayout from '@/components/auth/AuthLayout';
 import AuthInput from '@/components/auth/AuthInput';
 import NeonButton from '@/components/ui/NeonButton';
+import { useAuth } from '@/context/AuthContext';
 
 type Role = 'patient' | 'doctor' | 'family';
 
@@ -20,9 +21,16 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const { register } = useAuth();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    navigate(`/dashboard/${role}`);
+    try {
+      await register(name, email, password);
+      navigate(`/dashboard/${role}`);
+    } catch (err) {
+      console.error('Registration failed', err);
+    }
   };
 
   return (

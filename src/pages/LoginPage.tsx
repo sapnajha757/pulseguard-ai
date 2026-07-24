@@ -4,15 +4,22 @@ import { ArrowRight, ShieldCheck } from 'lucide-react';
 import AuthLayout from '@/components/auth/AuthLayout';
 import AuthInput from '@/components/auth/AuthInput';
 import NeonButton from '@/components/ui/NeonButton';
+import { useAuth } from '@/context/AuthContext';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    navigate('/dashboard/patient');
+    try {
+      await login(email, password);
+      navigate('/dashboard/patient');
+    } catch (err) {
+      console.error('Login failed', err);
+    }
   };
 
   return (
