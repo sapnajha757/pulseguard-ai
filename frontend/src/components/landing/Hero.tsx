@@ -42,23 +42,22 @@ export default function Hero() {
               families stay one step ahead of the unexpected.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link to="/register">
-                <NeonButton size="lg" className="group">
+              <NeonButton to="/register" size="lg" className="group">
                   Start monitoring
                   <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                 </NeonButton>
-              </Link>
-              <button
+              <NeonButton
+                variant="outline"
+                size="lg"
+                className="border-neon/40 text-neon hover:bg-neon/10"
                 onClick={() => {
                   startDemoMode('patient');
                   navigate('/dashboard/patient');
                 }}
               >
-                <NeonButton variant="outline" size="lg" className="border-neon/40 text-neon hover:bg-neon/10">
-                  <Play size={16} className="fill-neon/30 text-neon" />
-                  Try Demo Mode
-                </NeonButton>
-              </button>
+                <Play size={16} className="fill-neon/30 text-neon" />
+                Try Demo Mode
+              </NeonButton>
             </div>
 
             <div className="mt-12 grid grid-cols-3 gap-4">
