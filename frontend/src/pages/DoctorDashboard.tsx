@@ -225,6 +225,60 @@ export default function DoctorDashboard() {
             </>
           }
         />
+        <Route
+          path="/patients"
+          element={
+            <section className="mt-6">
+              <PageHeader title="Patient Directory" subtitle="List of all connected patients." />
+              <div className="grid gap-4 mt-6">
+                {patients.map((p: any) => (
+                  <div key={p.id} className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+                    <h3 className="text-lg font-semibold text-white">{p.id}</h3>
+                    <p className="text-sm text-slate-400 mt-2">Active Medications: {p.medicines?.length || 0}</p>
+                  </div>
+                ))}
+                {patients.length === 0 && (
+                  <p className="text-slate-400">No patients connected yet.</p>
+                )}
+              </div>
+            </section>
+          }
+        />
+        <Route
+          path="/alerts"
+          element={
+            <section className="mt-6">
+              <PageHeader title="Critical Alerts" subtitle="Recent alerts from your connected patients." />
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center mt-6">
+                <p className="text-slate-400 mb-4">No critical alerts at this time. All patients are stable.</p>
+              </div>
+            </section>
+          }
+        />
+        <Route
+          path="/reports"
+          element={
+            <section className="mt-6">
+              <PageHeader title="Medical Reports" subtitle="View latest health reports and risk analysis." />
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center mt-6">
+                <p className="text-slate-400 mb-4">No new reports generated today.</p>
+              </div>
+            </section>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <section className="mt-6">
+              <PageHeader title="Clinician Settings" subtitle="Manage your profile and preferences." />
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6 mt-6">
+                <p className="text-sm text-slate-300">Name: <strong className="text-white">{user?.name}</strong></p>
+                <p className="text-sm text-slate-300 mt-2">Email: <strong className="text-white">{user?.email}</strong></p>
+                <p className="text-sm text-slate-300 mt-2">Role: <strong className="text-white">Clinician</strong></p>
+              </div>
+            </section>
+          }
+        />
       </Routes>
     </DashboardLayout>
   );
