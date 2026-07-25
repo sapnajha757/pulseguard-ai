@@ -154,7 +154,7 @@ export default function PatientDashboard() {
               />
 
               {/* Profile */}
-              <ProfileCard name={user?.name} email={user?.email} role={user?.role} />
+              <ProfileCard name={user?.name} email={user?.email} role={user?.role} abhaId={user?.abhaId} />
 
               {/* Smart Medication Reminders & Adherence */}
               <div className="mt-6 space-y-6">

@@ -13,6 +13,7 @@ interface User extends AuthUser {
   doctorDetails?: any;
   familyDetails?: any;
   diseaseInfo?: any;
+  abhaId?: string;
 }
 
 interface AuthContextProps {
@@ -70,6 +71,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         email: 'dr.aanya@pulseguard.ai',
         role: 'doctor',
         isDemo: true,
+        connectedPatients: ['demo_patient_777']
       };
     } else if (role === 'family') {
       mockUser = {
@@ -78,6 +80,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         email: 'priya.mehta@pulseguard.ai',
         role: 'family',
         isDemo: true,
+        connectedPatients: ['demo_patient_777']
       };
     } else {
       mockUser = {
@@ -86,6 +89,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         email: 'aarav.mehta@pulseguard.ai',
         role: 'patient',
         isDemo: true,
+        abhaId: '91-9876-5432-1098'
       };
     }
     const demoToken = `demo_token_${role}_${Date.now()}`;

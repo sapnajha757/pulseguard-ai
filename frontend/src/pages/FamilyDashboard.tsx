@@ -38,6 +38,13 @@ export default function FamilyDashboard() {
   const [loading, setLoading] = useState(false);
 
   const fetchPatientData = async () => {
+    if (user?.isDemo) {
+      setPatientData({
+        medicines: [ { _id: 'med_1', name: 'Metformin', dosage: '500mg', frequency: 'Twice daily', reminderTime: '09:00, 21:00' } ]
+      });
+      setLoading(false);
+      return;
+    }
     if (!user?.connectedPatients || user.connectedPatients.length === 0) return;
     try {
       setLoading(true);

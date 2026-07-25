@@ -56,6 +56,13 @@ export default function DoctorDashboard() {
 
   // Fetch connected patients
   const fetchPatients = async () => {
+    if (user?.isDemo) {
+      setPatients([
+        { id: 'demo_patient_777', medicines: [ { name: 'Lipitor', dosage: '10mg', frequency: 'Daily', reminderTime: '08:00' } ] }
+      ]);
+      setLoading(false);
+      return;
+    }
     try {
       setLoading(true);
       const res = await api.get('/auth/me');
