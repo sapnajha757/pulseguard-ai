@@ -231,13 +231,27 @@ export default function DoctorDashboard() {
             <section className="mt-6">
               <PageHeader title="Patient Directory" subtitle="List of all connected patients." />
               <div className="grid gap-4 mt-6">
-                {patients.map((p: any) => (
+                {user?.isDemo ? highRiskPatients.map((p) => (
+                  <div key={p.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.05] transition-all">
+                    <div>
+                      <h3 className="text-lg font-semibold text-white">{p.name}</h3>
+                      <p className="text-sm text-slate-400 mt-1">Age: {p.age} | Condition: <span className="text-neon">{p.condition}</span></p>
+                    </div>
+                    <div className="mt-4 sm:mt-0 flex items-center gap-4 text-right">
+                      <div>
+                        <p className="text-xs text-slate-500 uppercase tracking-wider">Risk Score</p>
+                        <p className={`text-xl font-bold ${p.trend === 'up' ? 'text-danger-400' : p.trend === 'down' ? 'text-neon' : 'text-warning-400'}`}>{p.risk}</p>
+                      </div>
+                      <Badge variant={p.trend === 'up' ? 'danger' : p.trend === 'down' ? 'neon' : 'warning'}>{p.trend.toUpperCase()}</Badge>
+                    </div>
+                  </div>
+                )) : patients.map((p: any) => (
                   <div key={p.id} className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
                     <h3 className="text-lg font-semibold text-white">{p.id}</h3>
                     <p className="text-sm text-slate-400 mt-2">Active Medications: {p.medicines?.length || 0}</p>
                   </div>
                 ))}
-                {patients.length === 0 && (
+                {!user?.isDemo && patients.length === 0 && (
                   <p className="text-slate-400">No patients connected yet.</p>
                 )}
               </div>
@@ -249,8 +263,21 @@ export default function DoctorDashboard() {
           element={
             <section className="mt-6">
               <PageHeader title="Critical Alerts" subtitle="Recent alerts from your connected patients." />
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center mt-6">
-                <p className="text-slate-400 mb-4">No critical alerts at this time. All patients are stable.</p>
+              <div className="grid gap-4 mt-6">
+                {user?.isDemo ? doctorAlerts.map((a) => (
+                  <div key={a.id} className={`flex items-start gap-4 rounded-xl border p-5 ${levelStyle[a.level]}`}>
+                    <AlertTriangle size={24} className="mt-1" />
+                    <div>
+                      <h3 className="text-base font-bold">{a.patient}</h3>
+                      <p className="text-sm opacity-90 mt-1">{a.message}</p>
+                      <p className="text-xs opacity-70 mt-2">{a.time}</p>
+                    </div>
+                  </div>
+                )) : (
+                  <div className="rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center">
+                    <p className="text-slate-400 mb-4">No critical alerts at this time. All patients are stable.</p>
+                  </div>
+                )}
               </div>
             </section>
           }
@@ -260,8 +287,25 @@ export default function DoctorDashboard() {
           element={
             <section className="mt-6">
               <PageHeader title="Medical Reports" subtitle="View latest health reports and risk analysis." />
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center mt-6">
-                <p className="text-slate-400 mb-4">No new reports generated today.</p>
+              <div className="grid gap-4 mt-6">
+                {user?.isDemo ? recentReports.map((r) => (
+                  <div key={r.id} className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] p-5">
+                    <div className="flex items-center gap-4">
+                      <div className={`p-3 rounded-lg bg-${reportStatus[r.status]}/10 text-${reportStatus[r.status]}`}>
+                        <FileText size={20} />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-white">{r.type}</h3>
+                        <p className="text-sm text-slate-400">{r.patient} • {r.date}</p>
+                      </div>
+                    </div>
+                    <Badge variant={reportStatus[r.status]}>{r.status.toUpperCase()}</Badge>
+                  </div>
+                )) : (
+                  <div className="rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center">
+                    <p className="text-slate-400 mb-4">No new reports generated today.</p>
+                  </div>
+                )}
               </div>
             </section>
           }

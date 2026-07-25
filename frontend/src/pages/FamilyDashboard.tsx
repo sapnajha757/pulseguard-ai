@@ -154,8 +154,21 @@ export default function FamilyDashboard() {
           element={
             <section className="mt-6">
               <PageHeader title="Family Alerts" subtitle="Important health notifications regarding your loved one." />
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center mt-6">
-                <p className="text-slate-400 mb-4">No recent alerts. Vitals are stable.</p>
+              <div className="grid gap-4 mt-6">
+                {user?.isDemo ? familyAlerts.map((a) => (
+                  <div key={a.id} className={`flex items-start gap-4 rounded-xl border p-5 ${levelStyle[a.level]}`}>
+                    {a.level === 'critical' || a.level === 'warning' ? <AlertTriangle size={24} className="mt-1" /> : <Bell size={24} className="mt-1" />}
+                    <div>
+                      <h3 className="text-base font-bold">{a.title}</h3>
+                      <p className="text-sm opacity-90 mt-1">{a.detail}</p>
+                      <p className="text-xs opacity-70 mt-2">{a.time}</p>
+                    </div>
+                  </div>
+                )) : (
+                  <div className="rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center">
+                    <p className="text-slate-400 mb-4">No recent alerts. Vitals are stable.</p>
+                  </div>
+                )}
               </div>
             </section>
           }
@@ -166,14 +179,22 @@ export default function FamilyDashboard() {
             <section className="mt-6">
               <PageHeader title="Medications" subtitle="View and track your loved one's medication schedule." />
               <div className="grid gap-4 mt-6 md:grid-cols-2">
-                {patientData?.medicines?.map((m: any) => (
+                {user?.isDemo ? medicationHistory.map((m) => (
+                  <div key={m.id} className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] p-5 hover:bg-white/[0.05] transition-all">
+                    <div>
+                      <h3 className="text-sm font-bold text-white">{m.name} <span className="text-xs font-normal text-slate-400">({m.dose})</span></h3>
+                      <p className="text-xs text-slate-500 mt-1">{m.date}</p>
+                    </div>
+                    <Badge variant={m.status === 'taken' ? 'neon' : 'danger'}>{m.status.toUpperCase()}</Badge>
+                  </div>
+                )) : patientData?.medicines?.map((m: any) => (
                   <div key={m._id} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
                     <h3 className="text-sm font-semibold text-white">{m.name}</h3>
                     <p className="text-xs text-slate-400 mt-1">Dosage: {m.dosage} | Frequency: {m.frequency}</p>
                     <p className="text-xs text-slate-500 mt-1">Time: {m.reminderTime}</p>
                   </div>
                 ))}
-                {(!patientData?.medicines || patientData.medicines.length === 0) && (
+                {!user?.isDemo && (!patientData?.medicines || patientData.medicines.length === 0) && (
                   <div className="col-span-2 rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center">
                     <p className="text-slate-400">No active medications registered.</p>
                   </div>
@@ -187,8 +208,28 @@ export default function FamilyDashboard() {
           element={
             <section className="mt-6">
               <PageHeader title="Emergency Contacts" subtitle="Important contacts and medical personnel." />
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center mt-6">
-                <p className="text-slate-400 mb-4">No emergency contacts set up yet.</p>
+              <div className="grid gap-4 mt-6 md:grid-cols-2">
+                {user?.isDemo ? emergencyContacts.map((c) => (
+                  <div key={c.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.05] transition-all">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 rounded-full bg-white/5 text-slate-300">
+                        <Phone size={20} />
+                      </div>
+                      <div>
+                        <h3 className="text-base font-bold text-white">{c.name}</h3>
+                        <p className="text-sm text-slate-400">{c.relation}</p>
+                        <p className="text-sm text-neon font-mono mt-1">{c.phone}</p>
+                      </div>
+                    </div>
+                    <Badge variant={c.available ? 'neon' : 'neutral'} className="mt-3 sm:mt-0">
+                      {c.available ? 'AVAILABLE' : 'UNAVAILABLE'}
+                    </Badge>
+                  </div>
+                )) : (
+                  <div className="col-span-2 rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center">
+                    <p className="text-slate-400 mb-4">No emergency contacts set up yet.</p>
+                  </div>
+                )}
               </div>
             </section>
           }
