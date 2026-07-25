@@ -11,14 +11,21 @@ export default function LoginPage() {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
+    setLoading(true);
     try {
       await login(email, password);
       navigate('/dashboard/patient');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Login failed', err);
+      setError(err.response?.data?.message || 'Invalid credentials. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -36,6 +43,11 @@ export default function LoginPage() {
       }
     >
       <form onSubmit={handleSubmit} className="space-y-5">
+        {error && (
+          <div className="rounded-xl border border-danger/30 bg-danger/10 p-4 text-sm text-danger-400">
+            {error}
+          </div>
+        )}
         <AuthInput
           label="Email address"
           type="email"
@@ -43,6 +55,7 @@ export default function LoginPage() {
           icon="mail"
           value={email}
           onChange={setEmail}
+          required
         />
         <AuthInput
           label="Password"
@@ -51,6 +64,7 @@ export default function LoginPage() {
           icon="lock"
           value={password}
           onChange={setPassword}
+          required
         />
 
         <div className="flex items-center justify-between text-sm">

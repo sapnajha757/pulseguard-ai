@@ -20,16 +20,23 @@ export default function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const { register } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
+    setLoading(true);
     try {
       await register(name, email, password, role);
       navigate(`/dashboard/${role}`);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Registration failed', err);
+      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,11 +86,18 @@ export default function RegisterPage() {
           </div>
         </div>
 
+        {error && (
+          <div className="rounded-xl border border-danger/30 bg-danger/10 p-4 text-sm text-danger-400">
+            {error}
+          </div>
+        )}
+
         <AuthInput
           label="Full name"
           placeholder="Jane Doe"
           value={name}
           onChange={setName}
+          required
         />
         <AuthInput
           label="Email address"
@@ -92,6 +106,7 @@ export default function RegisterPage() {
           icon="mail"
           value={email}
           onChange={setEmail}
+          required
         />
         <AuthInput
           label="Password"
@@ -100,6 +115,7 @@ export default function RegisterPage() {
           icon="lock"
           value={password}
           onChange={setPassword}
+          required
         />
 
         <label className="flex items-start gap-3 text-sm text-slate-400">

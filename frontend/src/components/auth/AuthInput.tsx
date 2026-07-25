@@ -10,6 +10,7 @@ type Props = {
   value: string;
   onChange: (v: string) => void;
   rightSlot?: ReactNode;
+  required?: boolean;
 };
 
 export default function AuthInput({
@@ -20,6 +21,7 @@ export default function AuthInput({
   value,
   onChange,
   rightSlot,
+  required = false,
 }: Props) {
   const [show, setShow] = useState(false);
   const inputType = type === 'password' ? (show ? 'text' : 'password') : type;
@@ -42,6 +44,7 @@ export default function AuthInput({
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
+          required={required}
           className={[
             'w-full rounded-xl border border-white/10 bg-white/[0.03] py-3 text-sm text-white placeholder:text-slate-600',
             'transition focus:border-neon/40 focus:bg-white/[0.05] focus:outline-none focus:ring-2 focus:ring-neon/20',
