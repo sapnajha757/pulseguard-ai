@@ -1408,3 +1408,63 @@
 [2026-07-25T05:25:35.524Z] INFO: PulseGuard AI backend running in development mode on port 5000
 [2026-07-25T05:25:37.490Z] ERROR: Uncaught Exception: listen EADDRINUSE: address already in use :::5000
 [2026-07-25T05:26:27.812Z] ERROR: Uncaught Exception: listen EADDRINUSE: address already in use :::5000
+[2026-07-25T05:45:32.197Z] ERROR: Error: Invalid credentials
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:85:17
+    at async C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:12:18
+[2026-07-25T05:45:36.823Z] ERROR: Error: Email and password are required
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:71:17
+    at Object.asyncUtilWrap [as login] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:12:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+[2026-07-25T05:45:37.111Z] ERROR: Error: Email and password are required
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:71:17
+    at Object.asyncUtilWrap [as login] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:12:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+[2026-07-25T05:45:37.442Z] ERROR: Error: Email and password are required
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:71:17
+    at Object.asyncUtilWrap [as login] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:12:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+[2026-07-25T05:45:37.602Z] ERROR: Error: Email and password are required
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:71:17
+    at Object.asyncUtilWrap [as login] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:12:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+[2026-07-25T05:45:37.812Z] ERROR: Error: Email and password are required
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\services\auth.service.js:71:17
+    at Object.asyncUtilWrap [as login] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\controllers\auth.controller.js:12:36
+    at asyncUtilWrap (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express-async-handler\index.js:3:20)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (C:\Users\sapna jha\Downloads\PulseGuard-AI\backend\node_modules\express\lib\router\index.js:346:12)
+[2026-07-25T05:51:38.141Z] INFO: PulseGuard AI backend running in development mode on port 5000
+[2026-07-25T05:51:57.947Z] ERROR: Uncaught Exception: listen EADDRINUSE: address already in use :::5000

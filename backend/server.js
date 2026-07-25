@@ -37,6 +37,10 @@ app.use(
       if (/\.netlify\.app$/.test(origin)) {
         return callback(null, true);
       }
+      // Allow any ngrok domain
+      if (/\.ngrok-free\.dev$/.test(origin) || /\.ngrok\.io$/.test(origin)) {
+        return callback(null, true);
+      }
       // Check against CLIENT_URL (supports comma-separated list)
       const allowedOrigins = (env.clientUrl || '').split(',').map(s => s.trim()).filter(Boolean);
       if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
