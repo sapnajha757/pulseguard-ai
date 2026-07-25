@@ -166,10 +166,26 @@ export default function PatientDashboard() {
                   />
                 )}
                 <TodaysMedicines medicines={medicines as any[]} />
-                <AIHealthScoreCard />
+                <AIHealthScoreCard
+                  healthScore={user?.isDemo ? 87 : undefined}
+                  riskScore={user?.isDemo ? 18 : undefined}
+                  complianceScore={user?.isDemo ? 94 : undefined}
+                  futureRisk={user?.isDemo ? { next7Days: 'LOW', next30Days: 'LOW' } : undefined}
+                  isBlockchainVerified={!!user?.isDemo}
+                />
                 <div className="grid gap-6 md:grid-cols-2">
-                  <AIInsightsCard />
-                  <FutureRiskCard />
+                  <AIInsightsCard
+                    insights={user?.isDemo ? [
+                      'Medication adherence is excellent at 94% — maintain current schedule.',
+                      'Blood pressure trend stable over last 7 days. No intervention needed.',
+                      'Consider scheduling annual lipid panel — last test was 8 months ago.',
+                      'Hydration levels optimal. Continue 2L daily water intake.',
+                    ] : undefined}
+                  />
+                  <FutureRiskCard
+                    next7Days={user?.isDemo ? 'LOW' : undefined}
+                    next30Days={user?.isDemo ? 'LOW' : undefined}
+                  />
                 </div>
                 <AdherenceCalendar />
                 <MedicationTimeline />
